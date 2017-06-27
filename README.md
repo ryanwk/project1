@@ -15,9 +15,8 @@ Game directions: https://git.generalassemb.ly/ga-wdi-boston/game-project/find/ma
 (https://user-images.githubusercontent.com/19196821/27511519-40e8387c-58f4-11e7-9ce4-061ffeb063c4.png)
 
 4. To do (today):
-  1) set up game browser template with buttons (sign-in, sign-up, sign-out)
   2) map out game logic and get game play working
 
 5. Next steps:
   1) set up AJAX to get buttons working (sign-in, sign-up, sign-out)
-  2) finalize HTML/CSS/SCSS and make it look pretty
+  2) finalize HTML/CSS/SCSS and make it look good
