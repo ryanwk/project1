@@ -4,20 +4,23 @@ let xTurn = true
 let gameState = [0, 0, 0, 0, 0, 0, 0, 0, 0]
 let turnCounter = 0
 
+// event listeners
 const addHandlers = function () {
   $('.game-cell').on('click', toggleTurn)
   $('#resetButton').on('click', resetBoard)
 }
 
+// begin board logic
 const resetBoard = function () {
   xTurn = true
   gameState = [0, 0, 0, 0, 0, 0, 0, 0, 0]
   turnCounter = 0
   for (let i = 0; i < 9; i++) {
+// gets the id of the cell clicked and changes the text to which ever # i is
     $(document.getElementById(i)).text(i)
   }
 }
-
+// invoked with a click on a cell of the gameboard, places a symbol in the corresponding cell, updates the gameState array with a new value, update boolean to switch players turn
 const toggleTurn = function (event) {
   if (gameState[this.id] === 0) {
     if (xTurn) {
@@ -60,6 +63,7 @@ const checkForWin = function (i) {
   }
   return false
 }
+// end board logic
 
 module.exports = {
   addHandlers,
