@@ -18,5 +18,4 @@ require('./example')
 
 $(() => {
   events.addHandlers()
-  events.toggleTurn()
 })
