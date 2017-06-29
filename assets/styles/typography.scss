@@ -1,0 +1,14 @@
+$line-height: 1.6;
+$body-font-size: 18px;
+$vertical_margin: 40px;
+$body-width: 650px;
+$horizontal-padding: 10px;
+$quote-font-size: 30px;
+
+body {
+  margin: $vertical_margin;
+  max-width: $body-width;
+  line-height: $line-height;
+  font-size: $body-font-size;
+  padding: $horizontal-padding;
+}

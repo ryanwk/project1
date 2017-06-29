@@ -1,0 +1,45 @@
+@import 'color';
+@import 'typography';
+@import 'breakpoints';
+
+.col-xs-6 {
+  border: 1px solid white;
+  height: 100px;
+  width: 100px;
+  margin: 2px 2px 2px 2px;
+}
+
+#pagewrap {
+  padding: 5px;
+  width: 960px;
+  margin: 20px auto;
+}
+
+header {
+  height: 100px;
+  padding: 0 15px;
+}
+
+#leftColumn {
+  width: 190px;
+  float: left;
+  padding: 5px 15px;
+}
+
+#middle {
+  width: 394px;
+  float: left;
+  padding: 5px 15px;
+  margin: 0 5px 5px;
+}
+
+#rightColumn {
+  width: 170px;
+  padding: 5px 15px;
+  float: left;
+}
+
+footer {
+  clear: both;
+  padding: 0 15px;
+}
