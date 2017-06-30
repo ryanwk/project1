@@ -19,6 +19,7 @@
 header {
   height: 100px;
   padding: 0 15px;
+  text-align: center;
 }
 
 #leftColumn {
@@ -43,4 +44,11 @@ header {
 footer {
   clear: both;
   padding: 0 15px;
+}
+.footer {
+  text-align: center;
+}
+
+.modalb {
+  position: left;
 }

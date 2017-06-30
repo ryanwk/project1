@@ -25,7 +25,7 @@ const resetBoard = function () {
   ui.resetGameStatusVar()
   for (let i = 0; i < 9; i++) {
     // Resets text of each cell
-    $(document.getElementById(i)).text(i)
+    $(document.getElementById(i)).text('')
   }
 }
 
