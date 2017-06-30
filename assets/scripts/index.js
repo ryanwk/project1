@@ -37,4 +37,9 @@ $(() => {
     e.preventDefault()
     api.signOut()
   })
+  $('#startGame').on('click', function (e) {
+    // const data = getFormFields(this)
+    e.preventDefault()
+    api.createGame()
+  })
 })

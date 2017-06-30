@@ -1,8 +1,15 @@
 'use strict'
+const api = require('./api')
+const ui = require('./ui')
+// import gameHasStarted from './ui'
 
 let xTurn = true
 let gameState = [0, 0, 0, 0, 0, 0, 0, 0, 0]
 let turnCounter = 0
+
+let index = ''
+let letter = ''
+let gameOver = false
 
 // event listeners
 const addHandlers = function () {
@@ -15,34 +22,59 @@ const resetBoard = function () {
   xTurn = true
   gameState = [0, 0, 0, 0, 0, 0, 0, 0, 0]
   turnCounter = 0
+  ui.resetGameStatusVar()
   for (let i = 0; i < 9; i++) {
-// gets the id of the cell clicked and changes the text to which ever # i is
+    // Resets text of each cell
     $(document.getElementById(i)).text(i)
   }
 }
+
 // invoked with a click on a cell of the gameboard, places a symbol in the corresponding cell, updates the gameState array with a new value, update boolean to switch players turn
 const toggleTurn = function (event) {
-  if (gameState[this.id] === 0) {
-    if (xTurn) {
-      $(this).text('X')
-      xTurn = false
-      gameState[this.id] = 1
-      if (checkForWin(1)) {
-        alert('X wins!')
-      }
-    } else {
-      $(this).text('O')
-      xTurn = true
-      gameState[this.id] = 2
-      if (checkForWin(2)) {
-        alert('O wins!')
-      }
+  index = $(event.target).attr('id')
+  console.log('this is index: ' + index)
+  if (!ui.getGameStatus()) {
+    alert('You must click \'start game\' button to start the game')
+    return
+  }
+  console.log('its working' + ui.getGameStatus())
+  if (gameState[this.id] !== 0) {
+    return
+  }
+  if (xTurn) {
+    $(this).text('X')
+    xTurn = false
+    letter = 'X'
+    gameState[this.id] = 1
+    if (checkForWin(1)) {
+      alert('X wins!')
+      resetBoard()
+      gameOver = true
+      console.log('this is gameOver: ' + gameOver)
+    }
+  } else {
+    $(this).text('O')
+    letter = 'O'
+    xTurn = true
+    index = $(event.target.id)
+    gameState[this.id] = 2
+    if (checkForWin(2)) {
+      alert('O wins!')
+      gameOver = true
+      resetBoard()
+      console.log('this is gameOver: ' + gameOver)
     }
   }
+  console.log('this is letter: ' + letter)
+
   if (turnCounter++ === 8) {
     alert('draw!')
+    resetBoard()
+    gameOver = true
   }
   console.log(turnCounter)
+  console.log('this is gameOver: ' + gameOver)
+  onUpdateGame(letter, index, gameOver)
 }
 
 const checkForWin = function (i) {
@@ -65,8 +97,30 @@ const checkForWin = function (i) {
 }
 // end board logic
 
+// ajax
+const onUpdateGame = function (letter, index, gameOver) {
+  console.log('onUpdateGame is being invoked')
+  const gameData = {
+    'game': {
+      'cell': {
+        'index': index,
+        'value': letter
+      },
+      'over': gameOver
+    }
+  }
+  try {
+    api.updateGame(gameData)
+  } catch (e) {
+  }
+}
+
 module.exports = {
   addHandlers,
   toggleTurn,
-  resetBoard
+  resetBoard,
+  index,
+  letter,
+  gameOver,
+  onUpdateGame
 }

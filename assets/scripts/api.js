@@ -46,8 +46,41 @@ const signOut = () => {
   .done(ui.signOutSuccess)
   .fail(ui.failure)
 }
+const updateGame = function (data) {
+  console.log('updateGame is being invoked')
+  return $.ajax({
+    url: config.apiOrigin + '/games/' + store.game.id,
+    method: 'PATCH',
+    headers: {
+      Authorization: 'Token token=' + store.user.token
+    },
+    data
+  })
+  .done(ui.updateGameSuccess)
+  .catch(ui.failure)
+}
+const createGame = function (data) {
+  console.log('signed in status:' + ui.getSignInStatus())
+  if (!ui.getSignInStatus()) {
+    alert('You must sign in before starting a game')
+    return ui.failure()
+  }
+  return $.ajax({
+    url: config.apiOrigin + '/games/',
+    method: 'POST',
+    headers: {
+      Authorization: 'Token token=' + store.user.token
+    },
+    data
+  })
+  .done(ui.createGameSuccess)
+  .fail(ui.failure)
+}
+
 module.exports = {
   signUpRequest,
   signInRequest,
-  signOut
+  signOut,
+  createGame,
+  updateGame
 }
