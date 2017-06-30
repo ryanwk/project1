@@ -15,7 +15,7 @@ const ui = require('./ui')
 // post is a request to the server to accept what the data placed into the fields of my sign up button
 
 const signUpRequest = (data) => {
-  console.log(data)
+  // console.log(data)
   return $.ajax({
     url: config.apiOrigin + '/sign-up',
     method: 'POST',
@@ -25,7 +25,7 @@ const signUpRequest = (data) => {
   .fail(ui.failure)
 }
 const signInRequest = (data) => {
-  console.log(data)
+  // console.log(data)
   return $.ajax({
     url: config.apiOrigin + '/sign-in',
     method: 'POST',
@@ -35,7 +35,7 @@ const signInRequest = (data) => {
   .fail(ui.failure)
 }
 const signOut = () => {
-  console.log(store.user)
+  // console.log(store.user)
   return $.ajax({
     url: config.apiOrigin + '/sign-out/' + store.user.id,
     method: 'DELETE',
@@ -47,7 +47,7 @@ const signOut = () => {
   .fail(ui.failure)
 }
 const updateGame = function (data) {
-  console.log('updateGame is being invoked')
+  // console.log('updateGame is being invoked')
   return $.ajax({
     url: config.apiOrigin + '/games/' + store.game.id,
     method: 'PATCH',
@@ -60,7 +60,7 @@ const updateGame = function (data) {
   .catch(ui.failure)
 }
 const createGame = function (data) {
-  console.log('signed in status:' + ui.getSignInStatus())
+  // console.log('signed in status:' + ui.getSignInStatus())
   if (!ui.getSignInStatus()) {
     alert('You must sign in before starting a game')
     return ui.failure()

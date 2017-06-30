@@ -5,37 +5,38 @@ let gameHasStarted = false
 
 const success = (data) => {
   // handle success
-  console.log('it works!')
+  // console.log('it works!')
 }
 const signUpSuccess = (data) => {
   // handle success
-  console.log('user has signed up ' + data)
+  // console.log('user has signed up ' + data)
 }
 const signInSuccess = (data) => {
   // handle success
-  console.log('user has signed in: ' + data)
+  // console.log('user has signed in: ' + data)
   store.user = data.user
   signedIn = true
 }
 const signOutSuccess = () => {
   // handle success
-  console.log('user has signed out')
+  // console.log('user has signed out')
   store.user = {}
   signedIn = false
+  alert('Weisman score of 5.2!!!')
 }
 const updateGameSuccess = () => {
   // handle success
-  console.log('game has been updated with index, letter placed, and game status')
+  // console.log('game has been updated with index, letter placed, and game status')
 }
 const createGameSuccess = (data) => {
   // handle success
-  console.log('game has been created: ' + data)
+  // console.log('game has been created: ' + data)
   store.game = data.game
   gameHasStarted = true
 }
 const failure = () => {
   // handle failure
-  console.log('the request did not work!')
+  // console.log('the request did not work!')
 }
 
 const resetGameStatusVar = () => {

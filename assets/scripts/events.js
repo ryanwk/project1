@@ -32,12 +32,12 @@ const resetBoard = function () {
 // invoked with a click on a cell of the gameboard, places a symbol in the corresponding cell, updates the gameState array with a new value, update boolean to switch players turn
 const toggleTurn = function (event) {
   index = $(event.target).attr('id')
-  console.log('this is index: ' + index)
+  // console.log('this is index: ' + index)
   if (!ui.getGameStatus()) {
     alert('You must click \'start game\' button to start the game')
     return
   }
-  console.log('its working' + ui.getGameStatus())
+  // console.log('its working' + ui.getGameStatus())
   if (gameState[this.id] !== 0) {
     return
   }
@@ -50,7 +50,7 @@ const toggleTurn = function (event) {
       alert('X wins!')
       resetBoard()
       gameOver = true
-      console.log('this is gameOver: ' + gameOver)
+      // console.log('this is gameOver: ' + gameOver)
     }
   } else {
     $(this).text('O')
@@ -62,18 +62,18 @@ const toggleTurn = function (event) {
       alert('O wins!')
       gameOver = true
       resetBoard()
-      console.log('this is gameOver: ' + gameOver)
+      // console.log('this is gameOver: ' + gameOver)
     }
   }
-  console.log('this is letter: ' + letter)
+  // console.log('this is letter: ' + letter)
 
   if (turnCounter++ === 8) {
     alert('draw!')
     resetBoard()
     gameOver = true
   }
-  console.log(turnCounter)
-  console.log('this is gameOver: ' + gameOver)
+  // console.log(turnCounter)
+  // console.log('this is gameOver: ' + gameOver)
   onUpdateGame(letter, index, gameOver)
 }
 
@@ -99,7 +99,7 @@ const checkForWin = function (i) {
 
 // ajax
 const onUpdateGame = function (letter, index, gameOver) {
-  console.log('onUpdateGame is being invoked')
+  // console.log('onUpdateGame is being invoked')
   const gameData = {
     'game': {
       'cell': {
