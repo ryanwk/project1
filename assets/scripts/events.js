@@ -34,7 +34,7 @@ const toggleTurn = function (event) {
   index = $(event.target).attr('id')
   // console.log('this is index: ' + index)
   if (!ui.getGameStatus()) {
-    alert('You must click \'start game\' button to start the game')
+    $('#directions').text('You must click \'start game\' button to start the game')
     return
   }
   // console.log('its working' + ui.getGameStatus())
@@ -47,7 +47,7 @@ const toggleTurn = function (event) {
     letter = 'X'
     gameState[this.id] = 1
     if (checkForWin(1)) {
-      alert('X wins!')
+      $('#directions').text('X Wins!')
       resetBoard()
       gameOver = true
       // console.log('this is gameOver: ' + gameOver)
@@ -59,7 +59,7 @@ const toggleTurn = function (event) {
     index = $(event.target.id)
     gameState[this.id] = 2
     if (checkForWin(2)) {
-      alert('O wins!')
+      $('#directions').text('O Wins!')
       gameOver = true
       resetBoard()
       // console.log('this is gameOver: ' + gameOver)
@@ -68,7 +68,7 @@ const toggleTurn = function (event) {
   // console.log('this is letter: ' + letter)
 
   if (turnCounter++ === 8) {
-    alert('draw!')
+    $('#directions').text('Draw!')
     resetBoard()
     gameOver = true
   }

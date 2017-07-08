@@ -8,11 +8,11 @@ const success = (data) => {
   // console.log('it works!')
 }
 const signUpSuccess = (data) => {
-  // handle success
+  $('#sign-up-modal').modal('hide')
   // console.log('user has signed up ' + data)
 }
 const signInSuccess = (data) => {
-  // handle success
+  $('#sign-in-modal').modal('hide')
   // console.log('user has signed in: ' + data)
   store.user = data.user
   signedIn = true
@@ -22,7 +22,6 @@ const signOutSuccess = () => {
   // console.log('user has signed out')
   store.user = {}
   signedIn = false
-  alert('Weisman score of 5.2!!!')
 }
 const updateGameSuccess = () => {
   // handle success
@@ -36,9 +35,8 @@ const createGameSuccess = (data) => {
 }
 const failure = () => {
   // handle failure
-  // console.log('the request did not work!')
+  alert('did not work!')
 }
-
 const resetGameStatusVar = () => {
   gameHasStarted = false
 }

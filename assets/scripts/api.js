@@ -8,7 +8,7 @@ const ui = require('./ui')
 // these are the requests I make to the api
 
 // values placed into the form fields of the
-// sign up button and stores this in 'data',
+// sign up button are stored in 'data',
 // data is in the getFormFields function
 
 // // tells the browser what to do when user clicks sign up button
@@ -62,7 +62,7 @@ const updateGame = function (data) {
 const createGame = function (data) {
   // console.log('signed in status:' + ui.getSignInStatus())
   if (!ui.getSignInStatus()) {
-    alert('You must sign in before starting a game')
+    $('#directions').text('You must sign in before starting a game')
     return ui.failure()
   }
   return $.ajax({

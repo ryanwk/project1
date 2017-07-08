@@ -19,7 +19,7 @@
     <header>
 
       <h1>Tic Tac Toe</h1>
-
+      <h3 id="directions"> Welcome!</h3>
       <div class="btn-group" role="group" aria-label="...">
 
         <!-- sign up modal -->
@@ -28,7 +28,7 @@
             <div class="col-md-12">
 
               <!-- sign up modal -->
-              <button type="button" class="btn btn-primary btn-lg modalb" data-toggle="modal" data-target="#sign-up-modal"> Sign Up
+              <button type="button" class="btn btn-primary btn-lg modalb" data-toggle="modal" data-target="#sign-up-modal">Sign up
               </button>
 
 
@@ -39,138 +39,139 @@
 
                     <div class="modal-header">
                       <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                      <h4 class="modal-title" id="myModalLabel">Sign up</h4>
+                      <h4 class="modal-title" id="myModalLabel"></h4>
                     </div>
-                    <div class="modal-body">
-                      <form id="sign-up-form" class="form-horizontal">
-                        <div class="form-group">
-                          <label for="inputEmail3" class="col-sm-2 control-label">Email</label>
-                          <div class="col-sm-10">
-                            <input name="credentials[email]" type="email" class="form-control" id="inputEmail3" placeholder="Email">
-                          </div>
+
+                  <div class="modal-body">
+                    <form id="sign-up-form" class="form-horizontal">
+                      <div class="form-group">
+                        <label for="inputEmail3" class="col-sm-2 control-label">Email</label>
+                        <div class="col-sm-10">
+                          <input name="credentials[email]" type="email" class="form-control" id="inputEmail3" placeholder="Email">
                         </div>
-                        <div class="form-group">
-                          <label for="inputPassword3" class="col-sm-2 control-label">Password</label>
-                          <div class="col-sm-10">
-                            <input name="credentials[password]" type="password" class="form-control" id="inputPassword3" placeholder="Password">
-                          </div>
+                      </div>
+                      <div class="form-group">
+                        <label for="inputPassword3" class="col-sm-2 control-label">Password</label>
+                        <div class="col-sm-10">
+                          <input name="credentials[password]" type="password" class="form-control" id="inputPassword3" placeholder="Password">
                         </div>
-                        <div class="form-group">
-                          <div class="col-sm-offset-2 col-sm-10">
-                            <button type="submit" class="btn btn-default">Sign up</button>
-                          </div>
+                      </div>
+                      <div class="form-group">
+                        <div class="col-sm-offset-2 col-sm-10">
+                          <button type="submit" class="btn btn-default">Sign up</button>
                         </div>
-                      </form>
-                    </div>
+                      </div>
+                    </form>
                   </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
+      </div>
 
 
-          <!-- sign in modal -->
-          <div class="forms">
-            <div class="row">
-              <div class="col-md-12">
+      <!-- sign in modal -->
+      <div class="forms">
+        <div class="row">
+          <div class="col-md-12">
 
-                <!-- sign in modal -->
-                <button type="button" class="btn btn-primary btn-lg modalb" data-toggle="modal" data-target="#sign-in-modal"> Sign In
+            <!-- sign in modal -->
+            <button type="button" class="btn btn-primary btn-lg modalb" data-toggle="modal" data-target="#sign-in-modal"> Sign In
                 </button>
 
 
-                <!-- Modal -->
-                <div class="modal fade" id="sign-in-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-                  <div class="modal-dialog" role="document">
-                    <div class="modal-content">
+            <!-- Modal -->
+            <div class="modal fade" id="sign-in-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+              <div class="modal-dialog" role="document">
+                <div class="modal-content">
 
-                      <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                        <h4 class="modal-title" id="myModalLabel">Sign In</h4>
+                  <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel"></h4>
+                  </div>
+                  <div class="modal-body">
+                    <form id="sign-in-form" class="form-horizontal">
+                      <div class="form-group">
+                        <label for="inputEmail3" class="col-sm-2 control-label">Email</label>
+                        <div class="col-sm-10">
+                          <input name="credentials[email]" type="email" class="form-control" id="inputEmail3" placeholder="Email">
+                        </div>
                       </div>
-                      <div class="modal-body">
-                        <form id="sign-in-form" class="form-horizontal">
-                          <div class="form-group">
-                            <label for="inputEmail3" class="col-sm-2 control-label">Email</label>
-                            <div class="col-sm-10">
-                              <input name="credentials[email]" type="email" class="form-control" id="inputEmail3" placeholder="Email">
-                            </div>
-                          </div>
-                          <div class="form-group">
-                            <label for="inputPassword3" class="col-sm-2 control-label">Password</label>
-                            <div class="col-sm-10">
-                              <input name="credentials[password]" type="password" class="form-control" id="inputPassword3" placeholder="Password">
-                            </div>
-                          </div>
-                          <div class="form-group">
-                            <div class="col-sm-offset-2 col-sm-10">
-                              <button type="submit" class="btn btn-default">Sign in</button>
-                            </div>
-                          </div>
-                        </form>
+                      <div class="form-group">
+                        <label for="inputPassword3" class="col-sm-2 control-label">Password</label>
+                        <div class="col-sm-10">
+                          <input name="credentials[password]" type="password" class="form-control" id="inputPassword3" placeholder="Password">
+                        </div>
                       </div>
-                    </div>
+                      <div class="form-group">
+                        <div class="col-sm-offset-2 col-sm-10">
+                          <button type="submit" class="btn btn-default">Sign in</button>
+                        </div>
+                      </div>
+                    </form>
                   </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
+      </div>
+  </div>
 
-        <div id="sign-out" class="btn btn-primary btn-lg">
-          Sign Out
-        </div>
-
-        <div id="resetButton" class="btn btn-primary btn-lg">
-          Reset
-        </div>
-        <div id="startGame" class="btn btn-primary btn-lg">
-          Start Game
-        </div>
-
-    </header>
-
-    <section id="leftColumn">
-      <h2></h2>
-    </section>
-
-    <section id="middle">
-      <h2> </h2>
-
-      <div class="rowA">
-        <div id='0' class="col-xs-6 game-cell">
-        </div>
-        <div id='1' class="col-xs-6 game-cell">
-        </div>
-        <div id='2' class="col-xs-6 game-cell">
-        </div>
+  <div id="sign-out" class="btn btn-primary btn-lg">
+        Sign Out
       </div>
 
-      <div class="rowB">
-        <div id='3' class="col-xs-6 game-cell"></div>
-        <div id='4' class="col-xs-6 game-cell"></div>
-        <div id='5' class="col-xs-6 game-cell"></div>
+      <div id="resetButton" class="btn btn-primary btn-lg">
+        Reset
       </div>
-
-      <div class="rowC">
-        <div id='6' class="col-xs-6 game-cell"></div>
-        <div id='7' class="col-xs-6 game-cell"></div>
-        <div id='8' class="col-xs-6 game-cell"></div>
-
+      <div id="startGame" class="btn btn-primary btn-lg">
+        Start Game
       </div>
-    </section>
+</header>
 
-    <aside id="rightColumn">
-      <h2></h2>
-    </aside>
+  <section id="leftColumn">
+    <h2 id="leftColumn">X's Score</h2>
+    <p id="xScore">0</p>
 
-    <footer>
-      <h4 class="footer">MVP baby!</h4>
-      <p class="footer">Ryan Koch</p>
-    </footer>
+  </section>
+
+  <section id="middle">
+
+    <div class="rowA">
+      <div id='0' class="col-xs-6 game-cell">
+      </div>
+      <div id='1' class="col-xs-6 game-cell">
+      </div>
+      <div id='2' class="col-xs-6 game-cell">
+      </div>
+    </div>
+
+    <div class="rowB">
+      <div id='3' class="col-xs-6 game-cell"></div>
+      <div id='4' class="col-xs-6 game-cell"></div>
+      <div id='5' class="col-xs-6 game-cell"></div>
+    </div>
+
+    <div class="rowC">
+      <div id='6' class="col-xs-6 game-cell"></div>
+      <div id='7' class="col-xs-6 game-cell"></div>
+      <div id='8' class="col-xs-6 game-cell"></div>
 
     </div>
+  </section>
+
+  <aside id="rightColumn">
+    <h2 id="rightColumn">O's Score</h2>
+    <p id="oScore">0</p>
+  </aside>
+
+  <footer class="footer">
+    <h3>Created by Ryan Koch</h3>
+  </footer>
+
+  </div>
 
 </body>
 
