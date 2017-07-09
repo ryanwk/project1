@@ -1,6 +1,7 @@
 'use strict'
 const api = require('./api')
 const ui = require('./ui')
+const getFormFields = require('../../lib/get-form-fields')
 // import gameHasStarted from './ui'
 
 let xTurn = true
@@ -15,6 +16,7 @@ let gameOver = false
 const addHandlers = function () {
   $('.game-cell').on('click', toggleTurn)
   $('#resetButton').on('click', resetBoard)
+  $('#change-pwd').on('submit', onChangePassword)
 }
 
 // begin board logic
@@ -28,13 +30,21 @@ const resetBoard = function () {
     $(document.getElementById(i)).text('')
   }
 }
+// this was meant to handle user feedback and directions whe clicking on board
+// after signed in but before pressing start game, solved a different way
+// const signedInAndStarted = function () {
+//   if (ui.signedIn === true && ui.gameHasStarted === true) {
+//     $('#directions').text('Click start game!')
+//   }
+//   return
+// }
 
 // invoked with a click on a cell of the gameboard, places a symbol in the corresponding cell, updates the gameState array with a new value, update boolean to switch players turn
 const toggleTurn = function (event) {
   index = $(event.target).attr('id')
-  // console.log('this is index: ' + index)
+  console.log('this is index: ' + index)
   if (!ui.getGameStatus()) {
-    $('#directions').text('You must click \'start game\' button to start the game')
+    $('#directions').text('Click start game!')
     return
   }
   // console.log('its working' + ui.getGameStatus())
@@ -43,6 +53,7 @@ const toggleTurn = function (event) {
   }
   if (xTurn) {
     $(this).text('X')
+    $('#directions').text('O\'s turn')
     xTurn = false
     letter = 'X'
     gameState[this.id] = 1
@@ -54,6 +65,7 @@ const toggleTurn = function (event) {
     }
   } else {
     $(this).text('O')
+    $('#directions').text('X\'s turn')
     letter = 'O'
     xTurn = true
     index = $(event.target.id)
@@ -65,7 +77,7 @@ const toggleTurn = function (event) {
       // console.log('this is gameOver: ' + gameOver)
     }
   }
-  // console.log('this is letter: ' + letter)
+  console.log('this is letter: ' + letter)
 
   if (turnCounter++ === 8) {
     $('#directions').text('Draw!')
@@ -73,7 +85,7 @@ const toggleTurn = function (event) {
     gameOver = true
   }
   // console.log(turnCounter)
-  // console.log('this is gameOver: ' + gameOver)
+  console.log('this is gameOver: ' + gameOver)
   onUpdateGame(letter, index, gameOver)
 }
 
@@ -98,8 +110,9 @@ const checkForWin = function (i) {
 // end board logic
 
 // ajax
+
 const onUpdateGame = function (letter, index, gameOver) {
-  // console.log('onUpdateGame is being invoked')
+  console.log('onUpdateGame is being invoked')
   const gameData = {
     'game': {
       'cell': {
@@ -111,8 +124,14 @@ const onUpdateGame = function (letter, index, gameOver) {
   }
   try {
     api.updateGame(gameData)
-  } catch (e) {
-  }
+  } catch (e) {}
+}
+
+const onChangePassword = function (event) {
+  console.log('onChangePassword invoked')
+  const data = getFormFields(this)
+  event.preventDefault()
+  api.changePassword(data)
 }
 
 module.exports = {
@@ -122,5 +141,7 @@ module.exports = {
   index,
   letter,
   gameOver,
-  onUpdateGame
+  onUpdateGame,
+  onChangePassword,
+  // signedInAndStarted
 }
