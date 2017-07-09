@@ -11,11 +11,8 @@ const ui = require('./ui')
 // sign up button are stored in 'data',
 // data is in the getFormFields function
 
-// // tells the browser what to do when user clicks sign up button
-// post is a request to the server to accept what the data placed into the fields of my sign up button
-
 const signUpRequest = (data) => {
-  // console.log(data)
+  console.log(data)
   return $.ajax({
     url: config.apiOrigin + '/sign-up',
     method: 'POST',
@@ -48,7 +45,7 @@ const signOut = () => {
 }
 
 const changePassword = function (data) {
-  console.log('change password api invoked' + data)
+  // console.log('change password api invoked' + data)
   return $.ajax({
     url: config.apiOrigin + '/change-password/' + store.user.id,
     method: 'PATCH',
@@ -76,7 +73,6 @@ const updateGame = function (data) {
   .catch(ui.failure)
 }
 const createGame = function (data) {
-  // console.log('signed in status:' + ui.getSignInStatus())
   if (!ui.getSignInStatus()) {
     $('#directions').text('You must sign in before starting a game')
     return ui.createGameSuccess
@@ -93,6 +89,24 @@ const createGame = function (data) {
   .fail(ui.failure)
 }
 
+// GET for viewing an already completed game(s) or game(s) in progress
+
+// const gameStats = function (data) {
+//   console.log('ui.gameStats is being invoked')
+//   console.log(data)
+//   console.log(store.user)
+//   return $.ajax({
+//     url: config.apiOrigin + '/games?over=true',
+//     method: 'GET',
+//     headers: {
+//       Authorization: 'Token token=' + store.user.token
+//     },
+//     data
+//   })
+//   .done(ui.gameStatsSuccess)
+//   .catch(ui.gameStatsFail)
+// }
+
 module.exports = {
   signUpRequest,
   signInRequest,
@@ -100,4 +114,5 @@ module.exports = {
   createGame,
   updateGame,
   changePassword
+  // gameStats
 }

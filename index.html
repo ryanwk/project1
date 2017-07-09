@@ -39,7 +39,7 @@
 
                     <div class="modal-header">
                       <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                      <h4 class="modal-title" id="myModalLabel"></h4>
+                      <h4 class="modal-title" id="myModalLabel">Sign up</h4>
                     </div>
 
                     <div class="modal-body">
@@ -74,7 +74,7 @@
         <!-- sign in modal -->
         <div class="forms">
           <div class="row">
-            <div class="col-md-12">
+            <div class="col-md-12 modal-size">
 
               <!-- sign in modal -->
               <button type="button" class="btn btn-primary btn-lg modalb" data-toggle="modal" data-target="#sign-in-modal"> Sign In
@@ -88,7 +88,7 @@
 
                     <div class="modal-header">
                       <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                      <h4 class="modal-title" id="myModalLabel"></h4>
+                      <h4 class="modal-title" id="myModalLabel">Sign In</h4>
                     </div>
                     <div class="modal-body">
                       <form id="sign-in-form" class="form-horizontal">
@@ -140,11 +140,11 @@
                     <div class="modal-body">
                       <form id="change-pwd">
                         <fieldset>
-                          <input class='pop-up-fields text-field' type='password' placeholder='Current Password' name='passwords[old]'> <br> <br>
+                          <input id="passwordMatch" class='pop-up-fields text-field' type='password' placeholder='Current Password' name='passwords[old]'> <br> <br>
                           <input class='pop-up-fields text-field' type='password' placeholder='New Password' name='passwords[new]'><br> <br>
                           <input type="submit" name="submit" value="Change Password">
                         </fieldset>
-                        <div id="errors"></div>
+
                       </form>
                     </div>
 
@@ -154,6 +154,8 @@
             </div>
           </div>
         </div>
+
+
       </div>
 
       <div id="sign-out" class="btn btn-primary btn-lg">
@@ -171,6 +173,16 @@
     <section id="leftColumn">
       <!-- <h2 id="leftColumn">X's Score</h2>
       <p id="xScore">0</p> -->
+      <!-- <h4>Game History</h4>
+
+      <div id="gameStatsButton" class="btn btn-primary btn-lg">
+        Show Game Data
+      </div>
+      <div id="gameStats">
+        <div id="wins"> </div>
+        <div id="losses"> </div>
+        <div id="games"> </div>
+      </div> -->
 
     </section>
 

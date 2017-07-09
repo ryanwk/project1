@@ -11,12 +11,15 @@ $(() => {
 })
 
 // links to events.js file and adds handlers
+// links to gameStats file for GET request of game history
 const events = require('./events')
-
+// const gameStats = require('./gameStats')
+// require('./gameStats')
 require('./example')
 
 $(() => {
   events.addHandlers()
+  // gameStats.onGameStatsClick()
 })
 
 // checks if doc is ready and uses jQuery to

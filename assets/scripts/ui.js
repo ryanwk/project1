@@ -1,5 +1,6 @@
 'use strict'
 const store = require('./store')
+
 let signedIn = false
 let gameHasStarted = false
 
@@ -15,14 +16,34 @@ const signUpFailure = (data) => {
 const signInSuccess = (data) => {
   $('#sign-in-modal').modal('hide')
   $('#directions').text('Click \'start game\' button to begin!')
-  // console.log('user has signed in: ' + data)
+  console.log('user has signed in: ' + data)
   store.user = data.user
   signedIn = true
 }
 const signInFail = () => {
   alert('email or password is not correct')
 }
+// const gameStatsSuccess = (data) => {
+//   console.log('gameStats request worked!')
+//   let wins = 0
+//   let totalGames = data.length
+//   let losses = 0
+//   // console.log(data)
+//   if (totalGames !== 0) {
+//     for (let i = 0; i < data.length; i++) {
+//       // if (checkForWin(data[i].cells) === true) {
+//       //   wins += 1
+//     }
+//     losses = totalGames - wins
+//   }
+//   $('#wins').text('Player 1 won ' + wins + ' games.')
+//   $('#losses').text('Player 1 lost ' + losses + ' games.')
+//   $('#games').text('Player 1 played ' + totalGames + ' games.')
+// }
 
+// const gameStatsFail = () => {
+//   console.log('gameStats request did not work')
+// }
 const signOutSuccess = () => {
   // handle success
   alert('user has signed out')
@@ -35,7 +56,7 @@ const updateGameSuccess = () => {
 }
 const createGameSuccess = (data) => {
   // handle success
-  console.log('game has been created: ' + data)
+  console.log('game has been created: ' + data.game)
   store.game = data.game
   gameHasStarted = true
   $('#directions').text('X goes first!')
@@ -47,21 +68,25 @@ const failure = () => {
 }
 
 const changePasswordSuccess = (data) => {
-  console.log('password changed' + data)
+  console.log('password changed ' + data.password)
 }
 
 const changePasswordFailure = () => {
-  console.log('password chang failed')
+  // console.log('password change failed')
+  // events.originalPasswordMisMatch()
 }
 const resetGameStatusVar = () => {
   gameHasStarted = false
+  console.log('resetGameStatusVar is invoked and gameHasStarted is: ' + gameHasStarted)
 }
 
 const getSignInStatus = () => {
+  console.log('getSignInStatus is invoked and signedIn is: ' + signedIn)
   return signedIn
 }
 
 const getGameStatus = () => {
+  console.log('getGameStatus is invoked and gameHasStarted is: ' + gameHasStarted)
   return gameHasStarted
 }
 
@@ -79,4 +104,6 @@ module.exports = {
   getGameStatus,
   changePasswordFailure,
   changePasswordSuccess
+  // gameStatsSuccess,
+  // gameStatsFail
 }

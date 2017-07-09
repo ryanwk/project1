@@ -1,6 +1,8 @@
 'use strict'
 const api = require('./api')
 const ui = require('./ui')
+// require store if chngpwd mismatch function works
+// const store = require('./store')
 const getFormFields = require('../../lib/get-form-fields')
 // import gameHasStarted from './ui'
 
@@ -30,31 +32,27 @@ const resetBoard = function () {
     $(document.getElementById(i)).text('')
   }
 }
-// this was meant to handle user feedback and directions whe clicking on board
-// after signed in but before pressing start game, solved a different way
-// const signedInAndStarted = function () {
-//   if (ui.signedIn === true && ui.gameHasStarted === true) {
-//     $('#directions').text('Click start game!')
-//   }
-//   return
-// }
 
 // invoked with a click on a cell of the gameboard, places a symbol in the corresponding cell, updates the gameState array with a new value, update boolean to switch players turn
 const toggleTurn = function (event) {
   index = $(event.target).attr('id')
-  console.log('this is index: ' + index)
+  // console.log('this is index: ' + index)
+  console.log('xturn: ' + xTurn + '' + 'gameOver status is: ' + gameOver)
   if (!ui.getGameStatus()) {
     $('#directions').text('Click start game!')
     return
   }
+  debugger
   // console.log('its working' + ui.getGameStatus())
   if (gameState[this.id] !== 0) {
     return
   }
   if (xTurn) {
+    console.log('xTurn if has been invoked')
     $(this).text('X')
     $('#directions').text('O\'s turn')
     xTurn = false
+    console.log('xturn is currently: ' + '' + xTurn + '' + 'gameOver status is: ' + gameOver)
     letter = 'X'
     gameState[this.id] = 1
     if (checkForWin(1)) {
@@ -64,10 +62,12 @@ const toggleTurn = function (event) {
       // console.log('this is gameOver: ' + gameOver)
     }
   } else {
+    console.log('else xTurn has been invoked, handling O turn')
     $(this).text('O')
     $('#directions').text('X\'s turn')
     letter = 'O'
     xTurn = true
+    console.log('xturn is currently: ' + '' + xTurn + '' + 'gameOver status is: ' + gameOver)
     index = $(event.target.id)
     gameState[this.id] = 2
     if (checkForWin(2)) {
@@ -85,7 +85,7 @@ const toggleTurn = function (event) {
     gameOver = true
   }
   // console.log(turnCounter)
-  console.log('this is gameOver: ' + gameOver)
+  console.log('ToggleTurn returns this is gameOver: ' + gameOver)
   onUpdateGame(letter, index, gameOver)
 }
 
@@ -112,7 +112,7 @@ const checkForWin = function (i) {
 // ajax
 
 const onUpdateGame = function (letter, index, gameOver) {
-  console.log('onUpdateGame is being invoked')
+  console.log('the server has been updated with letter, index, and gameOver')
   const gameData = {
     'game': {
       'cell': {
@@ -128,11 +128,23 @@ const onUpdateGame = function (letter, index, gameOver) {
 }
 
 const onChangePassword = function (event) {
-  console.log('onChangePassword invoked')
+  // console.log('onChangePassword invoked')
   const data = getFormFields(this)
   event.preventDefault()
   api.changePassword(data)
 }
+
+// Display a message when original password is incorrect
+// const originalPasswordMissMatch = function (event) {
+//   event.preventDefault()
+//   const data = getFormFields(event.target)
+//   let oldPassword = $('#passwordMatch').val()
+//   console.log(oldPassword)
+//   let storedPassword = data.user.password
+//   if (!oldPassword === storedPassword) {
+//     console.log('oldPassword matches the stored password!')
+//   }
+// }
 
 module.exports = {
   addHandlers,
@@ -142,6 +154,6 @@ module.exports = {
   letter,
   gameOver,
   onUpdateGame,
-  onChangePassword,
-  // signedInAndStarted
+  onChangePassword
+  // originalPasswordMissMatch
 }
