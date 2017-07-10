@@ -68,7 +68,7 @@ const failure = () => {
 }
 
 const changePasswordSuccess = (data) => {
-  console.log('password changed ' + data.password)
+  console.log('password changed ')
 }
 
 const changePasswordFailure = () => {

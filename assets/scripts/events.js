@@ -15,17 +15,18 @@ let letter = ''
 let gameOver = false
 
 // event listeners
-const addHandlers = function () {
+const addHandlers = function() {
   $('.game-cell').on('click', toggleTurn)
   $('#resetButton').on('click', resetBoard)
   $('#change-pwd').on('submit', onChangePassword)
 }
 
 // begin board logic
-const resetBoard = function () {
+const resetBoard = function() {
   xTurn = true
   gameState = [0, 0, 0, 0, 0, 0, 0, 0, 0]
   turnCounter = 0
+  gameOver = false
   ui.resetGameStatusVar()
   for (let i = 0; i < 9; i++) {
     // Resets text of each cell
@@ -35,73 +36,67 @@ const resetBoard = function () {
 
 // invoked with a click on a cell of the gameboard, places a symbol in the corresponding cell, updates the gameState array with a new value, update boolean to switch players turn
 const toggleTurn = function (event) {
+
   index = $(event.target).attr('id')
-  // console.log('this is index: ' + index)
-  console.log('xturn: ' + xTurn + '' + 'gameOver status is: ' + gameOver)
   if (!ui.getGameStatus()) {
     $('#directions').text('Click start game!')
     return
   }
-  debugger
-  // console.log('its working' + ui.getGameStatus())
-  if (gameState[this.id] !== 0) {
+  if (gameState[index] !== 0) {
     return
   }
   if (xTurn) {
-    console.log('xTurn if has been invoked')
     $(this).text('X')
     $('#directions').text('O\'s turn')
     xTurn = false
-    console.log('xturn is currently: ' + '' + xTurn + '' + 'gameOver status is: ' + gameOver)
     letter = 'X'
-    gameState[this.id] = 1
+    gameState[index] = 1
     if (checkForWin(1)) {
       $('#directions').text('X Wins!')
       resetBoard()
       gameOver = true
-      // console.log('this is gameOver: ' + gameOver)
     }
   } else {
-    console.log('else xTurn has been invoked, handling O turn')
     $(this).text('O')
     $('#directions').text('X\'s turn')
     letter = 'O'
     xTurn = true
-    console.log('xturn is currently: ' + '' + xTurn + '' + 'gameOver status is: ' + gameOver)
-    index = $(event.target.id)
-    gameState[this.id] = 2
+    gameState[index] = 2
     if (checkForWin(2)) {
       $('#directions').text('O Wins!')
       gameOver = true
       resetBoard()
-      // console.log('this is gameOver: ' + gameOver)
     }
   }
-  console.log('this is letter: ' + letter)
 
   if (turnCounter++ === 8) {
     $('#directions').text('Draw!')
     resetBoard()
     gameOver = true
   }
-  // console.log(turnCounter)
-  console.log('ToggleTurn returns this is gameOver: ' + gameOver)
+
   onUpdateGame(letter, index, gameOver)
 }
 
-const checkForWin = function (i) {
+const checkForWin = function (xIndicator) {
   // Check diagonals for wins
-  if (gameState[0] === i && gameState[4] === i && gameState[8] === i) {
+  if (gameState[0] === xIndicator && gameState[4] === xIndicator &&
+    gameState[8] === xIndicator) {
     return true
-  } else if (gameState[2] === i && gameState[4] === i && gameState[6] === i) {
+  } else if (gameState[2] === xIndicator && gameState[4] === xIndicator &&
+    gameState[6] === xIndicator) {
     return true
   }
   // Check horizontal and vertical columns for wins
   for (let i = 0; i < 3; i++) {
     // Check horizontal columns for win
-    if (gameState[i * 3] === i && gameState[i * 3 + 1] === i && gameState[i * 3 + 2] === i) {
+    if (gameState[i * 3] === xIndicator && gameState[i * 3 + 1] === xIndicator &&
+      gameState[i * 3 + 2] === xIndicator) {
+      console.log('first if statement: i = ' + i)
       return true
-    } else if (gameState[i] === i && gameState[i + 3] === i && gameState[i + 6] === i) {
+    } else if (gameState[i] === xIndicator && gameState[i + 3] === xIndicator &&
+      gameState[i + 6] === xIndicator) {
+      console.log('second if statement')
       return true
     }
   }
@@ -112,7 +107,8 @@ const checkForWin = function (i) {
 // ajax
 
 const onUpdateGame = function (letter, index, gameOver) {
-  console.log('the server has been updated with letter, index, and gameOver')
+  console.log('the server has been updated with letter: ' + letter +
+              ', index: ' + index + ', and gameOver: ' + gameOver)
   const gameData = {
     'game': {
       'cell': {
@@ -127,7 +123,7 @@ const onUpdateGame = function (letter, index, gameOver) {
   } catch (e) {}
 }
 
-const onChangePassword = function (event) {
+const onChangePassword = function(event) {
   // console.log('onChangePassword invoked')
   const data = getFormFields(this)
   event.preventDefault()

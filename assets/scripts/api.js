@@ -1,4 +1,5 @@
 'use strict'
+const events = require('./events')
 const config = require('./config')
 const store = require('./store')
 
@@ -77,6 +78,7 @@ const createGame = function (data) {
     $('#directions').text('You must sign in before starting a game')
     return ui.createGameSuccess
   }
+  events.resetBoard()
   return $.ajax({
     url: config.apiOrigin + '/games/',
     method: 'POST',
