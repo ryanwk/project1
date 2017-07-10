@@ -1,6 +1,7 @@
 'use strict'
 const api = require('./api')
 const ui = require('./ui')
+const gameStats = require('./gameStats')
 // require store if chngpwd mismatch function works
 // const store = require('./store')
 const getFormFields = require('../../lib/get-form-fields')
@@ -15,14 +16,15 @@ let letter = ''
 let gameOver = false
 
 // event listeners
-const addHandlers = function() {
+const addHandlers = function () {
   $('.game-cell').on('click', toggleTurn)
   $('#resetButton').on('click', resetBoard)
   $('#change-pwd').on('submit', onChangePassword)
+  $('#gameStatsButton').on('click', gameStats.gameStatsUpdate)
 }
 
 // begin board logic
-const resetBoard = function() {
+const resetBoard = function () {
   xTurn = true
   gameState = [0, 0, 0, 0, 0, 0, 0, 0, 0]
   turnCounter = 0
@@ -36,7 +38,6 @@ const resetBoard = function() {
 
 // invoked with a click on a cell of the gameboard, places a symbol in the corresponding cell, updates the gameState array with a new value, update boolean to switch players turn
 const toggleTurn = function (event) {
-
   index = $(event.target).attr('id')
   if (!ui.getGameStatus()) {
     $('#directions').text('Click start game!')
@@ -76,6 +77,7 @@ const toggleTurn = function (event) {
   }
 
   onUpdateGame(letter, index, gameOver)
+  console.log('onUpdateGame is being called')
 }
 
 const checkForWin = function (xIndicator) {
@@ -123,7 +125,7 @@ const onUpdateGame = function (letter, index, gameOver) {
   } catch (e) {}
 }
 
-const onChangePassword = function(event) {
+const onChangePassword = function (event) {
   // console.log('onChangePassword invoked')
   const data = getFormFields(this)
   event.preventDefault()

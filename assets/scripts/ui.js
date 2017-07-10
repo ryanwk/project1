@@ -23,27 +23,6 @@ const signInSuccess = (data) => {
 const signInFail = () => {
   alert('email or password is not correct')
 }
-// const gameStatsSuccess = (data) => {
-//   console.log('gameStats request worked!')
-//   let wins = 0
-//   let totalGames = data.length
-//   let losses = 0
-//   // console.log(data)
-//   if (totalGames !== 0) {
-//     for (let i = 0; i < data.length; i++) {
-//       // if (checkForWin(data[i].cells) === true) {
-//       //   wins += 1
-//     }
-//     losses = totalGames - wins
-//   }
-//   $('#wins').text('Player 1 won ' + wins + ' games.')
-//   $('#losses').text('Player 1 lost ' + losses + ' games.')
-//   $('#games').text('Player 1 played ' + totalGames + ' games.')
-// }
-
-// const gameStatsFail = () => {
-//   console.log('gameStats request did not work')
-// }
 const signOutSuccess = () => {
   // handle success
   alert('user has signed out')
@@ -104,6 +83,4 @@ module.exports = {
   getGameStatus,
   changePasswordFailure,
   changePasswordSuccess
-  // gameStatsSuccess,
-  // gameStatsFail
 }

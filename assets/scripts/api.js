@@ -23,7 +23,6 @@ const signUpRequest = (data) => {
   .fail(ui.signUpFailure)
 }
 const signInRequest = (data) => {
-  // console.log(data)
   return $.ajax({
     url: config.apiOrigin + '/sign-in',
     method: 'POST',
@@ -33,7 +32,6 @@ const signInRequest = (data) => {
   .fail(ui.signInFail)
 }
 const signOut = () => {
-  // console.log(store.user)
   return $.ajax({
     url: config.apiOrigin + '/sign-out/' + store.user.id,
     method: 'DELETE',
@@ -46,7 +44,6 @@ const signOut = () => {
 }
 
 const changePassword = function (data) {
-  // console.log('change password api invoked' + data)
   return $.ajax({
     url: config.apiOrigin + '/change-password/' + store.user.id,
     method: 'PATCH',
@@ -60,7 +57,6 @@ const changePassword = function (data) {
 }
 
 const updateGame = function (data) {
-  // console.log('updateGame is being invoked')
   console.log(data)
   return $.ajax({
     url: config.apiOrigin + '/games/' + store.game.id,
@@ -91,24 +87,6 @@ const createGame = function (data) {
   .fail(ui.failure)
 }
 
-// GET for viewing an already completed game(s) or game(s) in progress
-
-// const gameStats = function (data) {
-//   console.log('ui.gameStats is being invoked')
-//   console.log(data)
-//   console.log(store.user)
-//   return $.ajax({
-//     url: config.apiOrigin + '/games?over=true',
-//     method: 'GET',
-//     headers: {
-//       Authorization: 'Token token=' + store.user.token
-//     },
-//     data
-//   })
-//   .done(ui.gameStatsSuccess)
-//   .catch(ui.gameStatsFail)
-// }
-
 module.exports = {
   signUpRequest,
   signInRequest,
@@ -116,5 +94,4 @@ module.exports = {
   createGame,
   updateGame,
   changePassword
-  // gameStats
 }
