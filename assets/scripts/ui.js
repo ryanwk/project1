@@ -6,7 +6,8 @@ let gameHasStarted = false
 
 const signUpSuccess = (data) => {
   $('#sign-up-modal').modal('hide')
-  // console.log('user has signed up ' + data)
+  $('#inputEmail4').val('')
+  $('#inputPassword4').val('')
 }
 
 const signUpFailure = (data) => {
@@ -19,22 +20,23 @@ const signInSuccess = (data) => {
   console.log('user has signed in: ' + data)
   store.user = data.user
   signedIn = true
+  $('#inputEmail3').val('')
+  $('#inputPassword3').val('')
 }
 const signInFail = () => {
   alert('email or password is not correct')
 }
 const signOutSuccess = () => {
-  // handle success
   alert('user has signed out')
   store.user = {}
   signedIn = false
+  $('#inputEmail3').val('')
+  $('#inputPassword3').val('')
 }
 const updateGameSuccess = () => {
-  // handle success
-  // console.log('game has been updated with index, letter placed, and game status')
+  console.log('game has been updated with index, letter placed, and game status')
 }
 const createGameSuccess = (data) => {
-  // handle success
   console.log('game has been created: ' + data.game)
   store.game = data.game
   gameHasStarted = true
@@ -42,7 +44,6 @@ const createGameSuccess = (data) => {
   console.table(store)
 }
 const failure = () => {
-  // handle failure
   alert('did not work!')
 }
 
@@ -51,8 +52,7 @@ const changePasswordSuccess = (data) => {
 }
 
 const changePasswordFailure = () => {
-  // console.log('password change failed')
-  // events.originalPasswordMisMatch()
+
 }
 const resetGameStatusVar = () => {
   gameHasStarted = false
@@ -65,7 +65,7 @@ const getSignInStatus = () => {
 }
 
 const getGameStatus = () => {
-  console.log('getGameStatus is invoked and gameHasStarted is: ' + gameHasStarted)
+  // console.log('getGameStatus is invoked and gameHasStarted is: ' + gameHasStarted)
   return gameHasStarted
 }
 

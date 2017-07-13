@@ -56,19 +56,19 @@ const changePassword = function (data) {
   .fail(ui.changePasswordFailure)
 }
 
-const updateGame = function (data) {
-  console.log(data)
-  return $.ajax({
-    url: config.apiOrigin + '/games/' + store.game.id,
-    method: 'PATCH',
-    headers: {
-      Authorization: 'Token token=' + store.user.token
-    },
-    data
-  })
-  .done(ui.updateGameSuccess)
-  .catch(ui.failure)
-}
+// const updateGame = function (data) {
+//   console.log(data)
+//   return $.ajax({
+//     url: config.apiOrigin + '/games/' + store.game.id,
+//     method: 'PATCH',
+//     headers: {
+//       Authorization: 'Token token=' + store.user.token
+//     },
+//     data
+//   })
+//   .done(ui.updateGameSuccess)
+//   .catch(ui.failure)
+// }
 const createGame = function (data) {
   if (!ui.getSignInStatus()) {
     $('#directions').text('You must sign in before starting a game')
@@ -92,6 +92,6 @@ module.exports = {
   signInRequest,
   signOut,
   createGame,
-  updateGame,
+  // updateGame,
   changePassword
 }

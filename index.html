@@ -35,6 +35,7 @@
                     <div class="modal-header">
                       <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                       <h4 class="modal-title" id="myModalLabel">Sign up</h4>
+                      <div id="SignUpFailure"> </div>
                     </div>
 
                     <div class="modal-body">
@@ -42,13 +43,13 @@
                         <div class="form-group">
                           <label for="inputEmail3" class="col-sm-2 control-label">Email</label>
                           <div class="col-sm-10">
-                            <input name="credentials[email]" type="email" class="form-control" id="inputEmail3" placeholder="Email">
+                            <input name="credentials[email]" type="email" class="form-control" id="inputEmail4" placeholder="Email">
                           </div>
                         </div>
                         <div class="form-group">
                           <label for="inputPassword3" class="col-sm-2 control-label">Password</label>
                           <div class="col-sm-10">
-                            <input name="credentials[password]" type="password" class="form-control" id="inputPassword3" placeholder="Password">
+                            <input name="credentials[password]" type="password" class="form-control" id="inputPassword4" placeholder="Password">
                           </div>
                         </div>
                         <div class="form-group">
@@ -149,7 +150,6 @@
       <div id="sign-out" class="btn btn-primary btn-lg">
         Sign Out
       </div>
-
       <div id="resetButton" class="btn btn-primary btn-lg">
         Reset
       </div>
@@ -158,10 +158,9 @@
       </div>
     </header>
 
-  <section id="leftColumn">
-
+    <section id="leftColumn">
       <!-- button group -->
-    <button type="button" id="gameStatsButton" class="btn btn-primary btn-lg">
+      <button type="button" id="gameStatsButton" class="btn btn-primary btn-lg">
       Show Game Data
     </button>
       <!-- sign up button -->
@@ -174,7 +173,7 @@
       <!-- sign in modal -->
       <button type="button" class="btn btn-primary btn-lg modalb" data-toggle="modal" data-target="#sign-in-modal"> Sign In
         </button>
-  </section>
+    </section>
 
     <section id="middle">
 
@@ -202,8 +201,6 @@
     </section>
 
     <aside id="rightColumn">
-      <!-- <h2 id="rightColumn">O's Score</h2>
-      <p id="oScore">0</p> -->
     </aside>
 
     <footer class="footer">

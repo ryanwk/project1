@@ -2,16 +2,15 @@
 const api = require('./api')
 const ui = require('./ui')
 const gameStats = require('./gameStats')
-// require store if chngpwd mismatch function works
-// const store = require('./store')
 const getFormFields = require('../../lib/get-form-fields')
-// import gameHasStarted from './ui'
+const config = require('./config')
+const store = require('./store')
 
 let xTurn = true
 let gameState = [0, 0, 0, 0, 0, 0, 0, 0, 0]
 let turnCounter = 0
 
-let index = ''
+let index = 0
 let letter = ''
 let gameOver = false
 
@@ -21,6 +20,7 @@ const addHandlers = function () {
   $('#resetButton').on('click', resetBoard)
   $('#change-pwd').on('submit', onChangePassword)
   $('#gameStatsButton').on('click', gameStats.gameStatsUpdate)
+  // $('.game-cell').on('click', patch.updateServer)
 }
 
 // begin board logic
@@ -41,32 +41,53 @@ const toggleTurn = function (event) {
   index = $(event.target).attr('id')
   if (!ui.getGameStatus()) {
     $('#directions').text('Click start game!')
-    return
   }
-  if (gameState[index] !== 0) {
+  if (gameOver === true) {
     return
   }
   if (xTurn) {
     $(this).text('X')
     $('#directions').text('O\'s turn')
     xTurn = false
-    letter = 'X'
+    letter = 'x'
     gameState[index] = 1
     if (checkForWin(1)) {
       $('#directions').text('X Wins!')
       resetBoard()
       gameOver = true
+      updateServer(letter, gameOver, index)
+        .done(updateServerSuccess)
+        .catch(updateServerFailure)
+      console.log('1st patch request')
+      return
+    } else {
+      gameOver = false
+      updateServer(letter, gameOver, index)
+        .done(updateServerSuccess)
+        .catch(updateServerFailure)
+      console.log('2nd patch request')
     }
   } else {
     $(this).text('O')
     $('#directions').text('X\'s turn')
-    letter = 'O'
+    letter = 'o'
     xTurn = true
     gameState[index] = 2
     if (checkForWin(2)) {
       $('#directions').text('O Wins!')
       gameOver = true
       resetBoard()
+      updateServer(letter, gameOver, index)
+        .done(updateServerSuccess)
+        .catch(updateServerFailure)
+      console.log('3rd patch request')
+      return
+    } else {
+      gameOver = false
+      updateServer(letter, gameOver, index)
+        .done(updateServerSuccess)
+        .catch(updateServerFailure)
+      console.log('4th patch request')
     }
   }
 
@@ -74,10 +95,43 @@ const toggleTurn = function (event) {
     $('#directions').text('Draw!')
     resetBoard()
     gameOver = true
+    updateServer(letter, gameOver, index)
+      .done(updateServerSuccess)
+      .catch(updateServerFailure)
+    console.log('5th patch request')
   }
+  // onUpdateGame(letter, index, gameOver)
+  // console.log('onUpdateGame is being called')
+}
 
-  onUpdateGame(letter, index, gameOver)
-  console.log('onUpdateGame is being called')
+// PATCH request
+const updateServer = function (position, player, status) {
+  console.log(position, player, status)
+  return $.ajax({
+    url: config.apiOrigin + '/games/' + store.game.id,
+    method: 'PATCH',
+    contentType: 'application/json',
+    headers: {
+      Authorization: 'Token token=' + store.user.token
+    },
+    data: JSON.stringify({
+      game: {
+        cell: {
+          index: position,
+          value: player
+        },
+        over: status
+      }
+    })
+  })
+}
+
+// $(event.target).attr('id'); grab id of cell
+const updateServerSuccess = () => {
+  console.log('PATCH request successful')
+}
+const updateServerFailure = () => {
+  console.log('PATCH request failed')
 }
 
 const checkForWin = function (xIndicator) {
@@ -94,11 +148,9 @@ const checkForWin = function (xIndicator) {
     // Check horizontal columns for win
     if (gameState[i * 3] === xIndicator && gameState[i * 3 + 1] === xIndicator &&
       gameState[i * 3 + 2] === xIndicator) {
-      console.log('first if statement: i = ' + i)
       return true
     } else if (gameState[i] === xIndicator && gameState[i + 3] === xIndicator &&
       gameState[i + 6] === xIndicator) {
-      console.log('second if statement')
       return true
     }
   }
@@ -106,43 +158,31 @@ const checkForWin = function (xIndicator) {
 }
 // end board logic
 
-// ajax
+// AJAX
 
-const onUpdateGame = function (letter, index, gameOver) {
-  console.log('the server has been updated with letter: ' + letter +
-              ', index: ' + index + ', and gameOver: ' + gameOver)
-  const gameData = {
-    'game': {
-      'cell': {
-        'index': index,
-        'value': letter
-      },
-      'over': gameOver
-    }
-  }
-  try {
-    api.updateGame(gameData)
-  } catch (e) {}
-}
+// const onUpdateGame = function (letter, index, gameOver) {
+//   console.log('the server has been updated with letter: ' + letter +
+//     ', index: ' + index + ', and gameOver: ' + gameOver)
+//   const gameData = {
+//     'game': {
+//       'cell': {
+//         'index': index,
+//         'value': letter
+//       },
+//       'over': gameOver
+//     }
+//   }
+//   try {
+//     api.updateGame(gameData)
+//   } catch (e) {}
+//   console.log('onUpdateGame failed')
+// }
 
 const onChangePassword = function (event) {
-  // console.log('onChangePassword invoked')
   const data = getFormFields(this)
   event.preventDefault()
   api.changePassword(data)
 }
-
-// Display a message when original password is incorrect
-// const originalPasswordMissMatch = function (event) {
-//   event.preventDefault()
-//   const data = getFormFields(event.target)
-//   let oldPassword = $('#passwordMatch').val()
-//   console.log(oldPassword)
-//   let storedPassword = data.user.password
-//   if (!oldPassword === storedPassword) {
-//     console.log('oldPassword matches the stored password!')
-//   }
-// }
 
 module.exports = {
   addHandlers,
@@ -151,7 +191,9 @@ module.exports = {
   index,
   letter,
   gameOver,
-  onUpdateGame,
-  onChangePassword
-  // originalPasswordMissMatch
+  // onUpdateGame,
+  onChangePassword,
+  updateServer,
+  updateServerSuccess,
+  updateServerFailure
 }
