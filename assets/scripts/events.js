@@ -26,6 +26,7 @@ const addHandlers = function () {
 
 // begin board logic
 const resetBoard = function () {
+  $('#directions').text('Click start game!')
   xTurn = true
   gameState = [0, 0, 0, 0, 0, 0, 0, 0, 0]
   turnCounter = 0

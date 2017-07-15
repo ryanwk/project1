@@ -2,6 +2,7 @@
 // a function given to me to deal with inputs on forms
 const getFormFields = require('../../lib/get-form-fields')
 const api = require('./api')
+const showHide = require('./showHide')
 
 const setAPIOrigin = require('../../lib/set-api-origin')
 const config = require('./config')
@@ -17,6 +18,7 @@ require('./example')
 
 $(() => {
   events.addHandlers()
+  showHide.frontPage()
 })
 
 // checks if doc is ready and uses jQuery to

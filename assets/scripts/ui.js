@@ -1,5 +1,6 @@
 'use strict'
 const store = require('./store')
+const showHide = require('./showHide')
 
 let signedIn = false
 let gameHasStarted = false
@@ -10,6 +11,7 @@ const signUpSuccess = (data) => {
   $('#inputPassword4').val('')
   $('#directions').text('Thanks for signing up! Now sign in to play!')
   $('#SignUpFailure').text('')
+  $('#signUpButton').hide()
 }
 
 // when a user clicks the 'x' to close a modal at any point this will clear the email/password/and signUpFaile text of the sign up modal
@@ -37,6 +39,7 @@ const signInSuccess = (data) => {
   $('#inputEmail3').val('')
   $('#inputPassword3').val('')
   $('#SignInFailure').text('')
+  showHide.signInView()
 }
 const signInFail = () => {
   $('#SignInFailure').text('Email or password is not correct, please try again.')
@@ -47,6 +50,7 @@ const signOutSuccess = (data) => {
   signedIn = false
   $('#inputEmail3').val('')
   $('#inputPassword3').val('')
+  showHide.signOutView()
 }
 const updateGameSuccess = () => {
   console.log('game has been updated with index, letter placed, and game status')
@@ -57,6 +61,7 @@ const createGameSuccess = (data) => {
   gameHasStarted = true
   $('#directions').text('X goes first!')
   console.table(store)
+  showHide.startGameView()
 }
 const failure = () => {
   console.log('something did not work!')
@@ -77,7 +82,7 @@ const changePasswordSuccess = (data) => {
 }
 
 const changePasswordFailure = () => {
-  $('#changePasswordFailure').text('Password\'s don\'t match, try again.')
+  // $('#changePasswordFailure').text('Password\'s don\'t match, try again.')
 }
 const resetGameStatusVar = () => {
   gameHasStarted = false

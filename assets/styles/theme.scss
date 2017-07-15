@@ -31,14 +31,14 @@ header {
 #middle {
   width: 394px;
   float: left;
-  padding: 100px 15px;
+  padding: 75px 15px;
   margin: 0 5px 5px;
 }
 
 #rightColumn {
-  width: 170px;
-  padding: 5px 15px;
   float: left;
+  padding: 5px 15px;
+  width: 170px;
 }
 
 footer {
@@ -49,22 +49,25 @@ footer {
 .footer {
   text-align: center;
 }
+
 .btn-group {
-  text-align: left;
-}
-div.modal-header {
   text-align: center;
 }
-div.modal-body {
-  padding: 30px;
+
+.modal-header {
+  text-align: left;
 }
-button {
-  width:100%;
-  margin-top: 5px;
+
+.modal-body {
+  padding: 5px;
 }
-button.close {
-  text-align: right;
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    text-align: right;
 }
-div.signUpButton {
+#gameStatsButton {
   text-align: center;
 }
