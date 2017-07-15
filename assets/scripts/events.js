@@ -1,5 +1,4 @@
 'use strict'
-const api = require('./api')
 const ui = require('./ui')
 const gameStats = require('./gameStats')
 const getFormFields = require('../../lib/get-form-fields')
@@ -20,7 +19,9 @@ const addHandlers = function () {
   $('#resetButton').on('click', resetBoard)
   $('#change-pwd').on('submit', onChangePassword)
   $('#gameStatsButton').on('click', gameStats.gameStatsUpdate)
-  // $('.game-cell').on('click', patch.updateServer)
+  $('.buttonCloseSignUp').on('click', ui.modalEscapeSignUp)
+  $('.buttonCloseSignIn').on('click', ui.modalEscapeSignIn)
+  $('.buttonCloseChangePassword').on('click', ui.changePasswordEscape)
 }
 
 // begin board logic
@@ -42,6 +43,9 @@ const toggleTurn = function (event) {
   if (!ui.getGameStatus()) {
     $('#directions').text('Click start game!')
   }
+  if (gameState[index] !== 0) {
+    return
+  }
   if (gameOver === true) {
     return
   }
@@ -58,14 +62,12 @@ const toggleTurn = function (event) {
       updateServer(letter, gameOver, index)
         .done(updateServerSuccess)
         .catch(updateServerFailure)
-      console.log('1st patch request')
       return
     } else {
       gameOver = false
       updateServer(letter, gameOver, index)
         .done(updateServerSuccess)
         .catch(updateServerFailure)
-      console.log('2nd patch request')
     }
   } else {
     $(this).text('O')
@@ -80,14 +82,12 @@ const toggleTurn = function (event) {
       updateServer(letter, gameOver, index)
         .done(updateServerSuccess)
         .catch(updateServerFailure)
-      console.log('3rd patch request')
       return
     } else {
       gameOver = false
       updateServer(letter, gameOver, index)
         .done(updateServerSuccess)
         .catch(updateServerFailure)
-      console.log('4th patch request')
     }
   }
 
@@ -98,13 +98,10 @@ const toggleTurn = function (event) {
     updateServer(letter, gameOver, index)
       .done(updateServerSuccess)
       .catch(updateServerFailure)
-    console.log('5th patch request')
   }
-  // onUpdateGame(letter, index, gameOver)
-  // console.log('onUpdateGame is being called')
 }
 
-// PATCH request
+// PATCH request to provide the server with stored data which can be accessed with the Show Game Data button. On every click of the board the index, letter (x/o), and game status (over: true/false) is recorded.
 const updateServer = function (position, player, status) {
   console.log(position, player, status)
   return $.ajax({
@@ -126,14 +123,14 @@ const updateServer = function (position, player, status) {
   })
 }
 
-// $(event.target).attr('id'); grab id of cell
 const updateServerSuccess = () => {
-  console.log('PATCH request successful')
 }
 const updateServerFailure = () => {
-  console.log('PATCH request failed')
 }
+// end updateServer Patch request
 
+// this function checks if there are any combination of 3 letters in a row and
+// determines a winner
 const checkForWin = function (xIndicator) {
   // Check diagonals for wins
   if (gameState[0] === xIndicator && gameState[4] === xIndicator &&
@@ -158,30 +155,20 @@ const checkForWin = function (xIndicator) {
 }
 // end board logic
 
-// AJAX
-
-// const onUpdateGame = function (letter, index, gameOver) {
-//   console.log('the server has been updated with letter: ' + letter +
-//     ', index: ' + index + ', and gameOver: ' + gameOver)
-//   const gameData = {
-//     'game': {
-//       'cell': {
-//         'index': index,
-//         'value': letter
-//       },
-//       'over': gameOver
-//     }
-//   }
-//   try {
-//     api.updateGame(gameData)
-//   } catch (e) {}
-//   console.log('onUpdateGame failed')
-// }
-
+// changes password and stores credentials
 const onChangePassword = function (event) {
   const data = getFormFields(this)
   event.preventDefault()
-  api.changePassword(data)
+  return $.ajax({
+    url: config.apiOrigin + '/change-password/' + store.user.id,
+    method: 'PATCH',
+    headers: {
+      Authorization: 'Token token=' + store.user.token
+    },
+    data
+  })
+    .done(ui.changePasswordSuccess)
+    .fail(ui.changePasswordFailure)
 }
 
 module.exports = {
@@ -191,7 +178,6 @@ module.exports = {
   index,
   letter,
   gameOver,
-  // onUpdateGame,
   onChangePassword,
   updateServer,
   updateServerSuccess,

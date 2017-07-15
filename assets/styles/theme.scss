@@ -52,8 +52,19 @@ footer {
 .btn-group {
   text-align: left;
 }
-
+div.modal-header {
+  text-align: center;
+}
+div.modal-body {
+  padding: 30px;
+}
 button {
   width:100%;
   margin-top: 5px;
+}
+button.close {
+  text-align: right;
+}
+div.signUpButton {
+  text-align: center;
 }
