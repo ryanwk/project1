@@ -1,13 +1,15 @@
 'use strict'
-const api = require('./api')
 const ui = require('./ui')
-// import gameHasStarted from './ui'
+const gameStats = require('./gameStats')
+const getFormFields = require('../../lib/get-form-fields')
+const config = require('./config')
+const store = require('./store')
 
 let xTurn = true
 let gameState = [0, 0, 0, 0, 0, 0, 0, 0, 0]
 let turnCounter = 0
 
-let index = ''
+let index = 0
 let letter = ''
 let gameOver = false
 
@@ -15,6 +17,11 @@ let gameOver = false
 const addHandlers = function () {
   $('.game-cell').on('click', toggleTurn)
   $('#resetButton').on('click', resetBoard)
+  $('#change-pwd').on('submit', onChangePassword)
+  $('#gameStatsButton').on('click', gameStats.gameStatsUpdate)
+  $('.buttonCloseSignUp').on('click', ui.modalEscapeSignUp)
+  $('.buttonCloseSignIn').on('click', ui.modalEscapeSignIn)
+  $('.buttonCloseChangePassword').on('click', ui.changePasswordEscape)
 }
 
 // begin board logic
@@ -22,6 +29,7 @@ const resetBoard = function () {
   xTurn = true
   gameState = [0, 0, 0, 0, 0, 0, 0, 0, 0]
   turnCounter = 0
+  gameOver = false
   ui.resetGameStatusVar()
   for (let i = 0; i < 9; i++) {
     // Resets text of each cell
@@ -32,64 +40,114 @@ const resetBoard = function () {
 // invoked with a click on a cell of the gameboard, places a symbol in the corresponding cell, updates the gameState array with a new value, update boolean to switch players turn
 const toggleTurn = function (event) {
   index = $(event.target).attr('id')
-  // console.log('this is index: ' + index)
   if (!ui.getGameStatus()) {
-    alert('You must click \'start game\' button to start the game')
+    $('#directions').text('Click start game!')
+  }
+  if (gameState[index] !== 0) {
     return
   }
-  // console.log('its working' + ui.getGameStatus())
-  if (gameState[this.id] !== 0) {
+  if (gameOver === true) {
     return
   }
   if (xTurn) {
     $(this).text('X')
+    $('#directions').text('O\'s turn')
     xTurn = false
-    letter = 'X'
-    gameState[this.id] = 1
+    letter = 'x'
+    gameState[index] = 1
     if (checkForWin(1)) {
-      alert('X wins!')
+      $('#directions').text('X Wins!')
       resetBoard()
       gameOver = true
-      // console.log('this is gameOver: ' + gameOver)
+      updateServer(letter, gameOver, index)
+        .done(updateServerSuccess)
+        .catch(updateServerFailure)
+      return
+    } else {
+      gameOver = false
+      updateServer(letter, gameOver, index)
+        .done(updateServerSuccess)
+        .catch(updateServerFailure)
     }
   } else {
     $(this).text('O')
-    letter = 'O'
+    $('#directions').text('X\'s turn')
+    letter = 'o'
     xTurn = true
-    index = $(event.target.id)
-    gameState[this.id] = 2
+    gameState[index] = 2
     if (checkForWin(2)) {
-      alert('O wins!')
+      $('#directions').text('O Wins!')
       gameOver = true
       resetBoard()
-      // console.log('this is gameOver: ' + gameOver)
+      updateServer(letter, gameOver, index)
+        .done(updateServerSuccess)
+        .catch(updateServerFailure)
+      return
+    } else {
+      gameOver = false
+      updateServer(letter, gameOver, index)
+        .done(updateServerSuccess)
+        .catch(updateServerFailure)
     }
   }
-  // console.log('this is letter: ' + letter)
 
   if (turnCounter++ === 8) {
-    alert('draw!')
+    $('#directions').text('Draw!')
     resetBoard()
     gameOver = true
+    updateServer(letter, gameOver, index)
+      .done(updateServerSuccess)
+      .catch(updateServerFailure)
   }
-  // console.log(turnCounter)
-  // console.log('this is gameOver: ' + gameOver)
-  onUpdateGame(letter, index, gameOver)
 }
 
-const checkForWin = function (i) {
+// PATCH request to provide the server with stored data which can be accessed with the Show Game Data button. On every click of the board the index, letter (x/o), and game status (over: true/false) is recorded.
+const updateServer = function (position, player, status) {
+  console.log(position, player, status)
+  return $.ajax({
+    url: config.apiOrigin + '/games/' + store.game.id,
+    method: 'PATCH',
+    contentType: 'application/json',
+    headers: {
+      Authorization: 'Token token=' + store.user.token
+    },
+    data: JSON.stringify({
+      game: {
+        cell: {
+          index: position,
+          value: player
+        },
+        over: status
+      }
+    })
+  })
+}
+
+const updateServerSuccess = () => {
+}
+const updateServerFailure = () => {
+}
+// end updateServer Patch request
+
+// this function checks if there are any combination of 3 letters in a row and
+// determines a winner
+const checkForWin = function (xIndicator) {
   // Check diagonals for wins
-  if (gameState[0] === i && gameState[4] === i && gameState[8] === i) {
+  if (gameState[0] === xIndicator && gameState[4] === xIndicator &&
+    gameState[8] === xIndicator) {
     return true
-  } else if (gameState[2] === i && gameState[4] === i && gameState[6] === i) {
+  } else if (gameState[2] === xIndicator && gameState[4] === xIndicator &&
+    gameState[6] === xIndicator) {
     return true
   }
   // Check horizontal and vertical columns for wins
   for (let i = 0; i < 3; i++) {
     // Check horizontal columns for win
-    if (gameState[i * 3] === i && gameState[i * 3 + 1] === i && gameState[i * 3 + 2] === i) {
+    if (gameState[i * 3] === xIndicator && gameState[i * 3 + 1] === xIndicator &&
+      gameState[i * 3 + 2] === xIndicator) {
       return true
-    } else if (gameState[i] === i && gameState[i + 3] === i && gameState[i + 6] === i) {
+    } else if (gameState[i] === xIndicator && gameState[i + 3] === xIndicator &&
+      gameState[i + 6] === xIndicator) {
       return true
     }
   }
@@ -97,22 +155,20 @@ const checkForWin = function (i) {
 }
 // end board logic
 
-// ajax
-const onUpdateGame = function (letter, index, gameOver) {
-  // console.log('onUpdateGame is being invoked')
-  const gameData = {
-    'game': {
-      'cell': {
-        'index': index,
-        'value': letter
-      },
-      'over': gameOver
-    }
-  }
-  try {
-    api.updateGame(gameData)
-  } catch (e) {
-  }
+// changes password and stores credentials
+const onChangePassword = function (event) {
+  const data = getFormFields(this)
+  event.preventDefault()
+  return $.ajax({
+    url: config.apiOrigin + '/change-password/' + store.user.id,
+    method: 'PATCH',
+    headers: {
+      Authorization: 'Token token=' + store.user.token
+    },
+    data
+  })
+    .done(ui.changePasswordSuccess)
+    .fail(ui.changePasswordFailure)
 }
 
 module.exports = {
@@ -122,5 +178,8 @@ module.exports = {
   index,
   letter,
   gameOver,
-  onUpdateGame
+  onChangePassword,
+  updateServer,
+  updateServerSuccess,
+  updateServerFailure
 }

@@ -1,6 +1,7 @@
 $background-color: #4e4e4e;
 $font-color: #f7f7f7;
 $white: #fff;
+$modal-font-color: #2F4F4F;
 
 body {
   background-color: $background-color;
@@ -9,4 +10,8 @@ body {
 
 .box {
   border: 1px solid $white;
+}
+
+.btn-group {
+  color: $modal-font-color;
 }

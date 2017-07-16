@@ -18,7 +18,7 @@
 
 header {
   height: 100px;
-  padding: 0 15px;
+  padding: 10 15px;
   text-align: center;
 }
 
@@ -31,7 +31,7 @@ header {
 #middle {
   width: 394px;
   float: left;
-  padding: 5px 15px;
+  padding: 100px 15px;
   margin: 0 5px 5px;
 }
 
@@ -45,10 +45,26 @@ footer {
   clear: both;
   padding: 0 15px;
 }
+
 .footer {
   text-align: center;
 }
-
-.modalb {
-  position: left;
+.btn-group {
+  text-align: left;
+}
+div.modal-header {
+  text-align: center;
+}
+div.modal-body {
+  padding: 30px;
+}
+button {
+  width:100%;
+  margin-top: 5px;
+}
+button.close {
+  text-align: right;
+}
+div.signUpButton {
+  text-align: center;
 }

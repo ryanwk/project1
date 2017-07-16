@@ -19,18 +19,13 @@
     <header>
 
       <h1>Tic Tac Toe</h1>
-
+      <h3 id="directions"> Welcome! Please sign in or sign up to play!</h3>
       <div class="btn-group" role="group" aria-label="...">
 
         <!-- sign up modal -->
-        <div class="forms">
+        <div class="forms signUpHide">
           <div class="row">
             <div class="col-md-12">
-
-              <!-- sign up modal -->
-              <button type="button" class="btn btn-primary btn-lg modalb" data-toggle="modal" data-target="#sign-up-modal"> Sign Up
-              </button>
-
 
               <!-- Modal -->
               <div class="modal fade" id="sign-up-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
@@ -38,21 +33,25 @@
                   <div class="modal-content">
 
                     <div class="modal-header">
-                      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                      <h4 class="modal-title" id="myModalLabel">Sign up</h4>
+                      <button type="button" class="close buttonCloseSignUp" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                      <h4 class="modal-title" id="myModalLabel-signUp">Sign up
+                      </h4>
+                      <h5 id="SignUpFailure"> </h5>
+
                     </div>
+
                     <div class="modal-body">
                       <form id="sign-up-form" class="form-horizontal">
                         <div class="form-group">
                           <label for="inputEmail3" class="col-sm-2 control-label">Email</label>
                           <div class="col-sm-10">
-                            <input name="credentials[email]" type="email" class="form-control" id="inputEmail3" placeholder="Email">
+                            <input name="credentials[email]" type="email" class="form-control" id="inputEmail4" placeholder="Email">
                           </div>
                         </div>
                         <div class="form-group">
                           <label for="inputPassword3" class="col-sm-2 control-label">Password</label>
                           <div class="col-sm-10">
-                            <input name="credentials[password]" type="password" class="form-control" id="inputPassword3" placeholder="Password">
+                            <input name="credentials[password]" type="password" class="form-control" id="inputPassword4" placeholder="Password">
                           </div>
                         </div>
                         <div class="form-group">
@@ -70,46 +69,41 @@
         </div>
 
 
-          <!-- sign in modal -->
-          <div class="forms">
-            <div class="row">
-              <div class="col-md-12">
+        <!-- sign in modal -->
+        <div class="forms">
+          <div class="row">
+            <div class="col-md-12 modal-size">
 
-                <!-- sign in modal -->
-                <button type="button" class="btn btn-primary btn-lg modalb" data-toggle="modal" data-target="#sign-in-modal"> Sign In
-                </button>
+              <!-- Modal -->
+              <div class="modal fade" id="sign-in-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                <div class="modal-dialog" role="document">
+                  <div class="modal-content">
 
-
-                <!-- Modal -->
-                <div class="modal fade" id="sign-in-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-                  <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-
-                      <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                        <h4 class="modal-title" id="myModalLabel">Sign In</h4>
-                      </div>
-                      <div class="modal-body">
-                        <form id="sign-in-form" class="form-horizontal">
-                          <div class="form-group">
-                            <label for="inputEmail3" class="col-sm-2 control-label">Email</label>
-                            <div class="col-sm-10">
-                              <input name="credentials[email]" type="email" class="form-control" id="inputEmail3" placeholder="Email">
-                            </div>
+                    <div class="modal-header">
+                      <button type="button" class="close buttonCloseSignIn" data-dismiss="modal" aria-label="Close"><span class="buttonClose" aria-hidden="true">&times;</span></button>
+                      <h4 class="modal-title" id="myModalLabel">Sign In</h4>
+                      <h5 id="SignInFailure"> </h5>
+                    </div>
+                    <div class="modal-body">
+                      <form id="sign-in-form" class="form-horizontal">
+                        <div class="form-group">
+                          <label for="inputEmail3" class="col-sm-2 control-label">Email</label>
+                          <div class="col-sm-10">
+                            <input name="credentials[email]" type="email" class="form-control" id="inputEmail3" placeholder="Email">
                           </div>
-                          <div class="form-group">
-                            <label for="inputPassword3" class="col-sm-2 control-label">Password</label>
-                            <div class="col-sm-10">
-                              <input name="credentials[password]" type="password" class="form-control" id="inputPassword3" placeholder="Password">
-                            </div>
+                        </div>
+                        <div class="form-group">
+                          <label for="inputPassword3" class="col-sm-2 control-label">Password</label>
+                          <div class="col-sm-10">
+                            <input name="credentials[password]" type="password" class="form-control" id="inputPassword3" placeholder="Password">
                           </div>
-                          <div class="form-group">
-                            <div class="col-sm-offset-2 col-sm-10">
-                              <button type="submit" class="btn btn-default">Sign in</button>
-                            </div>
+                        </div>
+                        <div class="form-group">
+                          <div class="col-sm-offset-2 col-sm-10 signUpButton">
+                            <button type="submit" class="btn btn-default">Sign in</button>
                           </div>
-                        </form>
-                      </div>
+                        </div>
+                      </form>
                     </div>
                   </div>
                 </div>
@@ -118,25 +112,74 @@
           </div>
         </div>
 
-        <div id="sign-out" class="btn btn-primary btn-lg">
-          Sign Out
+
+        <!-- change password modal -->
+
+        <div class="forms">
+          <div class="row">
+            <div class="col-md-12">
+
+
+              <div class="modal fade" id="change-pass-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                <div class="modal-dialog" role="document">
+                  <div class="modal-content">
+                    <div class="modal-header">
+
+                      <button type="button" class="close buttonCloseChangePassword" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                      <h4 class="modal-title" id="myModalLabel">Change Password</h4>
+                      <h5 id="changePasswordFailure"> </h5>
+                    </div>
+
+                    <div class="modal-body">
+                      <form id="change-pwd">
+                        <fieldset>
+                          <input id="currentPassword" class='pop-up-fields text-field' type='password' placeholder='Current Password' name='passwords[old]'> <br> <br>
+                          <input id="newPassword" class='pop-up-fields text-field' type='password' placeholder='New Password' name='passwords[new]'><br> <br>
+                          <input type="submit" name="submit" value="Change Password">
+                        </fieldset>
+
+                      </form>
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
 
-        <div id="resetButton" class="btn btn-primary btn-lg">
-          Reset
-        </div>
-        <div id="startGame" class="btn btn-primary btn-lg">
-          Start Game
-        </div>
 
+      </div>
+
+      <div id="sign-out" class="btn btn-primary btn-lg">
+        Sign Out
+      </div>
+      <div id="resetButton" class="btn btn-primary btn-lg">
+        Reset
+      </div>
+      <div id="startGame" class="btn btn-primary btn-lg">
+        Start Game
+      </div>
     </header>
 
     <section id="leftColumn">
-      <h2></h2>
+      <!-- button group -->
+      <button type="button" id="gameStatsButton" class="btn btn-primary btn-lg">
+      Show Game Data
+    </button>
+      <!-- sign up button -->
+      <button type="button" class="btn btn-primary btn-lg modalb" data-toggle="modal" data-target="#sign-up-modal">Sign up
+</button>
+      <!-- change password button -->
+      <button type="button" class="btn btn-primary btn-lg modalb" data-toggle="modal" data-target="#change-pass-modal"> Change Password
+            </button>
+
+      <!-- sign in modal -->
+      <button type="button" class="btn btn-primary btn-lg modalb" data-toggle="modal" data-target="#sign-in-modal"> Sign In
+        </button>
     </section>
 
     <section id="middle">
-      <h2> </h2>
 
       <div class="rowA">
         <div id='0' class="col-xs-6 game-cell">
@@ -162,15 +205,13 @@
     </section>
 
     <aside id="rightColumn">
-      <h2></h2>
     </aside>
 
-    <footer>
-      <h4 class="footer">MVP baby!</h4>
-      <p class="footer">Ryan Koch</p>
+    <footer class="footer">
+      <h3>Created by Ryan Koch</h3>
     </footer>
 
-    </div>
+  </div>
 
 </body>
 
