@@ -16,7 +16,7 @@ let gameOver = false
 // event listeners
 const addHandlers = function () {
   $('.game-cell').on('click', toggleTurn)
-  $('#resetButton').on('click', resetBoard)
+  $('#resetButton').on('click', resetBoardDuringGame)
   $('#change-pwd').on('submit', onChangePassword)
   $('#gameStatsButton').on('click', gameStats.gameStatsUpdate)
   $('.buttonCloseSignUp').on('click', ui.modalEscapeSignUp)
@@ -25,19 +25,49 @@ const addHandlers = function () {
 }
 
 // begin board logic
-const resetBoard = function () {
-  $('#directions').text('Click start game!')
+
+// when ever a game is created, by clicking start game, this function runs
+const initializeGame = function () {
+  ui.resetGameStatusVar()
+  $('#resetButton').show()
   xTurn = true
   gameState = [0, 0, 0, 0, 0, 0, 0, 0, 0]
   turnCounter = 0
   gameOver = false
-  ui.resetGameStatusVar()
   for (let i = 0; i < 9; i++) {
-    // Resets text of each cell
+  // Resets text of each cell
     $(document.getElementById(i)).text('')
   }
 }
+// when a winner is declared this function runs
+const resetBoardAfterWin = function () {
+  xTurn = true
+  gameState = [0, 0, 0, 0, 0, 0, 0, 0, 0]
+  turnCounter = 0
+  gameOver = true
+  for (let i = 0; i < 9; i++) {
+  // Resets text of each cell
+    $(document.getElementById(i)).text('')
+  }
+  $('#resetButton').hide()
+}
 
+// when a player his the rest button during game play this function runs
+const resetBoardDuringGame = function () {
+  if (gameOver === false) {
+    xTurn = true
+    gameState = [0, 0, 0, 0, 0, 0, 0, 0, 0]
+    turnCounter = 0
+    gameOver = true
+    // ui.resetGameStatusVar()
+    for (let i = 0; i < 9; i++) {
+    // Resets text of each cell
+      $(document.getElementById(i)).text('')
+    }
+  }
+  $('#resetButton').hide()
+  $('#directions').text('Click start game to play again!')
+}
 // invoked with a click on a cell of the gameboard, places a symbol in the corresponding cell, updates the gameState array with a new value, update boolean to switch players turn
 const toggleTurn = function (event) {
   index = $(event.target).attr('id')
@@ -57,8 +87,8 @@ const toggleTurn = function (event) {
     letter = 'x'
     gameState[index] = 1
     if (checkForWin(1)) {
-      $('#directions').text('X Wins!')
-      resetBoard()
+      $('#directions').text('X Wins! Click start game to play again!')
+      resetBoardAfterWin()
       gameOver = true
       updateServer(letter, gameOver, index)
         .done(updateServerSuccess)
@@ -70,16 +100,16 @@ const toggleTurn = function (event) {
         .done(updateServerSuccess)
         .catch(updateServerFailure)
     }
-  } else {
+  } else if (xTurn === false) {
     $(this).text('O')
     $('#directions').text('X\'s turn')
     letter = 'o'
     xTurn = true
     gameState[index] = 2
     if (checkForWin(2)) {
-      $('#directions').text('O Wins!')
+      $('#directions').text('O Wins! Click start game to play again!')
       gameOver = true
-      resetBoard()
+      resetBoardAfterWin()
       updateServer(letter, gameOver, index)
         .done(updateServerSuccess)
         .catch(updateServerFailure)
@@ -94,17 +124,19 @@ const toggleTurn = function (event) {
 
   if (turnCounter++ === 8) {
     $('#directions').text('Draw!')
-    resetBoard()
+    resetBoardAfterWin()
     gameOver = true
     updateServer(letter, gameOver, index)
       .done(updateServerSuccess)
       .catch(updateServerFailure)
   }
+  $('#changePassNotification').text('').hide()
+  $('#gameStatsNotification').text('').hide()
 }
 
 // PATCH request to provide the server with stored data which can be accessed with the Show Game Data button. On every click of the board the index, letter (x/o), and game status (over: true/false) is recorded.
 const updateServer = function (position, player, status) {
-  console.log(position, player, status)
+  // console.log(position, player, status)
   return $.ajax({
     url: config.apiOrigin + '/games/' + store.game.id,
     method: 'PATCH',
@@ -174,8 +206,9 @@ const onChangePassword = function (event) {
 
 module.exports = {
   addHandlers,
+  initializeGame,
   toggleTurn,
-  resetBoard,
+  resetBoardDuringGame,
   index,
   letter,
   gameOver,

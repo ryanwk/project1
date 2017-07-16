@@ -40,7 +40,10 @@
         <button id="resetButton" class="btn btn-primary btn-lg">
         Reset
       </button>
-
+      <!-- game stats button -->
+      <button type="button" id="gameStatsButton" class="btn btn-primary btn-lg">
+              Show Game Data
+              </button>
         <!-- modal properties; wrapped by button-container which holds this container called btn-group-->
         <div class="btn-group" role="group" aria-label="...">
 
@@ -165,9 +168,6 @@
               </div>
             </div>
           </div>
-          <!-- </div> -->
-          <!-- </div> -->
-          <!-- </div> -->
         </div>
         <!-- end button container -->
       </div>
@@ -178,14 +178,15 @@
 
       <button type="button" id="changePasswordButton" class="btn btn-primary btn-lg modalb" data-toggle="modal" data-target="#change-pass-modal"> Change Password
                   </button>
-
+<div>
+  <p id="changePassNotification">
+  </p>
+  <p id="gameStatsNotification">
+  </p>
+</div>
     </section>
 
     <section id="middle">
-
-
-
-
       <div id="gameBoard">
         <div class="rowA">
           <div id='0' class="col-xs-6 game-cell">
@@ -208,13 +209,6 @@
           <div id='8' class="col-xs-6 game-cell"></div>
         </div>
       </div>
-
-
-  <!-- game stats button -->
-  <button type="button" id="gameStatsButton" class="btn btn-primary btn-lg">
-          Show Game Data
-          </button>
-
     </section>
 
 

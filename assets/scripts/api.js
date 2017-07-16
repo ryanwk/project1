@@ -13,7 +13,6 @@ const ui = require('./ui')
 // data is in the getFormFields function
 
 const signUpRequest = (data) => {
-  console.log(data)
   return $.ajax({
     url: config.apiOrigin + '/sign-up',
     method: 'POST',
@@ -47,7 +46,7 @@ const createGame = function (data) {
     $('#directions').text('You must sign in before starting a game')
     return ui.createGameSuccess
   }
-  events.resetBoard()
+  events.initializeGame()
   return $.ajax({
     url: config.apiOrigin + '/games/',
     method: 'POST',

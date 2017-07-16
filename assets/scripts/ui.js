@@ -53,18 +53,17 @@ const signOutSuccess = (data) => {
   showHide.signOutView()
 }
 const updateGameSuccess = () => {
-  console.log('game has been updated with index, letter placed, and game status')
 }
 const createGameSuccess = (data) => {
-  console.log('game has been created: ' + data.game)
+  // console.log('game has been created: ' + data.game)
   store.game = data.game
   gameHasStarted = true
   $('#directions').text('X goes first!')
-  console.table(store)
+  // console.table(store)
   showHide.startGameView()
 }
 const failure = () => {
-  console.log('something did not work!')
+  // console.log('something did not work!')
 }
 
 // when a user clicks the 'x' to close a modal at any point this will clear the email/password/and signUpFaile text of the sign in modal
@@ -78,24 +77,21 @@ const changePasswordSuccess = (data) => {
   $('#changePasswordFailure').text('')
   $('#currentPassword').val('')
   $('#newPassword').val('')
-  $('#directions').text('Password has been changed.').fadeOut(4000)
+  $('#changePassNotification').text('Password has been changed!').show()
 }
 
 const changePasswordFailure = () => {
-  // $('#changePasswordFailure').text('Password\'s don\'t match, try again.')
+  $('#changePasswordFailure').text('Password\'s don\'t match, try again.')
 }
 const resetGameStatusVar = () => {
   gameHasStarted = false
-  console.log('resetGameStatusVar is invoked and gameHasStarted is: ' + gameHasStarted)
 }
 
 const getSignInStatus = () => {
-  console.log('getSignInStatus is invoked and signedIn is: ' + signedIn)
   return signedIn
 }
 
 const getGameStatus = () => {
-  // console.log('getGameStatus is invoked and gameHasStarted is: ' + gameHasStarted)
   return gameHasStarted
 }
 

@@ -1,12 +1,14 @@
 'use strict'
 
 const frontPage = function () {
-  // $('#gameBoard').hide()
+  $('#gameBoard').hide()
   $('#gameStatsButton').hide()
   $('#changePasswordButton').hide()
   $('#startGame').hide()
   $('#sign-out').hide()
   $('#resetButton').hide()
+  $('#changePassNotification').text('').hide()
+  $('#gameStatsNotification').text('').hide()
 }
 const signInView = function () {
   $('#signInButton').hide()
@@ -14,6 +16,7 @@ const signInView = function () {
   $('#startGame').show()
   $('#sign-out').show()
   $('#changePasswordButton').show()
+  $('#resetButton').hide()
 }
 const signOutView = function () {
   $('#signInButton').show()
@@ -23,10 +26,13 @@ const signOutView = function () {
   $('#changePasswordButton').hide()
   $('#resetButton').hide()
   $('#gameStatsButton').hide()
+  $('#gameBoard').hide()
+  $('#changePassNotification').text('').hide()
+  $('#gameStatsNotification').text('').hide()
 }
 const startGameView = function () {
   $('#gameStatsButton').show()
-  $('#resetButton').show()
+  $('#gameBoard').show()
 }
 
 module.exports = {

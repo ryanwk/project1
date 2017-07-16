@@ -4,7 +4,6 @@ const store = require('./store')
 
 // GET for viewing an already completed game(s) or game(s) in progress
 const gameStatsUpdate = function (data) {
-  console.log('gameStatsUpdate is being invoked')
   return $.ajax({
     url: config.apiOrigin + '/games',
     method: 'GET',
@@ -16,15 +15,13 @@ const gameStatsUpdate = function (data) {
   .catch(gameStatsFail)
 }
 const gameStatsSuccess = (data) => {
-  console.log('gameStats request worked!')
-  console.log(data.games.length)
-  $('#directions').text('Total number of games played is: ' + data.games.length)
+  // console.log(data.games.length)
+  $('#gameStatsNotification').text('Total number of games played is: ' + data.games.length).show()
 }
 const gameStatsFail = () => {
-  console.log('gameStats request did not work')
+
 }
 
 module.exports = {
   gameStatsUpdate
-
 }
