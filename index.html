@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Tic Tac Toe</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Do not add `link` tags unless you know what you are doing -->
+  <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
+
+  <!-- Do not add `script` tags unless you know what you are doing -->
+  <script src="public/vendor.js" type="text/javascript" charset="utf-8" defer></script>
+  <script src="public/application.js" type="text/javascript" charset="utf-8" defer></script>
+</head>
+
+<body>
+  <div id="pagewrap">
+
+    <header>
+
+      <h1>Tic Tac Toe</h1>
+      <h3 id="directions"> Welcome! Please sign in or sign up to play!</h3>
+
+      <!-- modal buttons -->
+      <div id="button-container">
+
+        <!-- sign up button -->
+        <button id="signUpButton" type="button" class="btn btn-primary btn-lg modalb" data-toggle="modal" data-target="#sign-up-modal">Sign up
+</button>
+        <!-- static start game button -->
+        <button id="startGame" class="btn btn-primary btn-lg">
+  Start Game
+</button>
+        <!-- sign in modal -->
+        <button type="button" id="signInButton" class="btn btn-primary btn-lg modalb" data-toggle="modal" data-target="#sign-in-modal"> Sign In
+</button>
+
+        <!-- static buttons -->
+
+        <button id="resetButton" class="btn btn-primary btn-lg">
+        Reset
+      </button>
+      <!-- game stats button -->
+      <button type="button" id="gameStatsButton" class="btn btn-primary btn-lg">
+              Show Game Data
+              </button>
+        <!-- modal properties; wrapped by button-container which holds this container called btn-group-->
+        <div class="btn-group" role="group" aria-label="...">
+
+          <!-- sign up modal -->
+          <div class="forms signUpHide">
+            <div class="row">
+              <div class="col-md-12">
+
+                <!-- Modal -->
+                <div class="modal fade" id="sign-up-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                  <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+
+                      <div class="modal-header">
+                        <button type="button" class="close buttonCloseSignUp" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="myModalLabel-signUp">Sign up
+                </h4>
+                        <h5 id="SignUpFailure"> </h5>
+
+                      </div>
+
+                      <div class="modal-body">
+                        <form id="sign-up-form" class="form-horizontal">
+                          <div class="form-group">
+                            <label for="inputEmail3" class="col-sm-2 control-label">Email</label>
+                            <div class="col-sm-10">
+                              <input name="credentials[email]" type="email" class="form-control" id="inputEmail4" placeholder="Email">
+                            </div>
+                          </div>
+                          <div class="form-group">
+                            <label for="inputPassword3" class="col-sm-2 control-label">Password</label>
+                            <div class="col-sm-10">
+                              <input name="credentials[password]" type="password" class="form-control" id="inputPassword4" placeholder="Password">
+                            </div>
+                          </div>
+                          <div class="form-group">
+                            <div class="col-sm-offset-2 col-sm-10">
+                              <button type="submit" class="btn btn-default">Sign up</button>
+                            </div>
+                          </div>
+                        </form>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+          <!-- sign in modal -->
+          <div class="forms">
+            <div class="row">
+              <div class="col-md-12">
+
+                <!-- Modal -->
+                <div class="modal fade" id="sign-in-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                  <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+
+                      <div class="modal-header">
+                        <button type="button" class="close buttonCloseSignIn" data-dismiss="modal" aria-label="Close"><span class="buttonClose" aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="myModalLabel">Sign In</h4>
+                        <h5 id="SignInFailure"> </h5>
+                      </div>
+                      <div class="modal-body">
+                        <form id="sign-in-form" class="form-horizontal">
+                          <div class="form-group">
+                            <label for="inputEmail3" class="col-sm-2 control-label">Email</label>
+                            <div class="col-sm-10">
+                              <input name="credentials[email]" type="email" class="form-control" id="inputEmail3" placeholder="Email">
+                            </div>
+                          </div>
+                          <div class="form-group">
+                            <label for="inputPassword3" class="col-sm-2 control-label">Password</label>
+                            <div class="col-sm-10">
+                              <input name="credentials[password]" type="password" class="form-control" id="inputPassword3" placeholder="Password">
+                            </div>
+                          </div>
+                          <div class="form-group">
+                            <div class="col-sm-offset-2 col-sm-10 signUpButton">
+                              <button type="submit" class="btn btn-default">Sign in</button>
+                            </div>
+                          </div>
+                        </form>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+          <!-- change password modal -->
+
+          <!-- <div class="forms"> -->
+          <!-- <div class="row"> -->
+          <!-- <div class=""> -->
+
+
+          <div class="modal fade" id="change-pass-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+
+                  <button type="button" class="close buttonCloseChangePassword" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                  <h4 class="modal-title" id="myModalLabel">Change Password</h4>
+                  <h5 id="changePasswordFailure"> </h5>
+                </div>
+
+                <div class="modal-body">
+                  <form id="change-pwd">
+                    <fieldset>
+                      <input id="currentPassword" class='pop-up-fields text-field' type='password' placeholder='Current Password' name='passwords[old]'> <br> <br>
+                      <input id="newPassword" class='pop-up-fields text-field' type='password' placeholder='New Password' name='passwords[new]'><br> <br>
+                      <input type="submit" name="submit" value="Change Password">
+                    </fieldset>
+                  </form>
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- end button container -->
+      </div>
+    </header>
+
+    <section id="leftColumn">
+      <!-- change password button -->
+
+      <button type="button" id="changePasswordButton" class="btn btn-primary btn-lg modalb" data-toggle="modal" data-target="#change-pass-modal"> Change Password
+                  </button>
+<div>
+  <p id="changePassNotification">
+  </p>
+  <p id="gameStatsNotification">
+  </p>
+</div>
+    </section>
+
+    <section id="middle">
+      <div id="gameBoard">
+        <div class="rowA">
+          <div id='0' class="col-xs-6 game-cell">
+          </div>
+          <div id='1' class="col-xs-6 game-cell">
+          </div>
+          <div id='2' class="col-xs-6 game-cell">
+          </div>
+        </div>
+
+        <div class="rowB">
+          <div id='3' class="col-xs-6 game-cell"></div>
+          <div id='4' class="col-xs-6 game-cell"></div>
+          <div id='5' class="col-xs-6 game-cell"></div>
+        </div>
+
+        <div class="rowC">
+          <div id='6' class="col-xs-6 game-cell"></div>
+          <div id='7' class="col-xs-6 game-cell"></div>
+          <div id='8' class="col-xs-6 game-cell"></div>
+        </div>
+      </div>
+    </section>
+
+
+    <aside id="rightColumn">
+
+
+      <button type="button" id="sign-out" class="btn btn-primary btn-lg">
+                    Sign Out
+                  </button>
+
+    </aside>
+
+    <footer class="footer">
+      <h3>Created by Ryan Koch</h3>
+    </footer>
+
+  </div>
+
+</body>
+
+</html>
